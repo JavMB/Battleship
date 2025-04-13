@@ -72,13 +72,13 @@ Seguimos una estructura de ramas simple y profesional para evitar conflictos y m
 
 Usamos un tablero estilo **Kanban** para gestionar el trabajo y que todos sepamos qué hacer.
 
-📍 [Enlace al Kanban del proyecto](https://github.com/usuario/repositorio/projects/1)
+📍 [Enlace al Kanban del proyecto](https://github.com/users/JavMB/projects/1)
 
 ### Columnas:
-- ✅ **To Do**: tareas pendientes (se asignan a personas).
-- 🛠️ **In Progress**: tareas que se están haciendo.
-- 🔍 **Review**: tareas terminadas a revisar antes de merge.
-- 🎉 **Done**: tareas finalizadas y mergeadas a `develop`.
+-  **To Do**: tareas pendientes (se asignan a personas).
+-  **In Progress**: tareas que se están haciendo.
+-  **Review**: tareas terminadas a revisar antes de merge.
+-  **Done**: tareas finalizadas y mergeadas a `develop`.
 
 ---
 
