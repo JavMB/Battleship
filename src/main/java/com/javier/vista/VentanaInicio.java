@@ -15,8 +15,23 @@ public class VentanaInicio extends JFrame {
     }
 
     private void initComponents() {
+
         JPanel panelFondo = new ImagenFondo();
         panelFondo.setLayout(new BorderLayout());
+
+
+        JPanel panelTitulo = new JPanel();
+        panelTitulo.setOpaque(false);
+
+
+        JLabel lblTitulo = new JLabel("BATTLESHIP");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 48));
+        lblTitulo.setForeground(Color.WHITE);
+        panelTitulo.add(lblTitulo);
+
+
+        panelFondo.add(panelTitulo, BorderLayout.NORTH);
+
 
         this.add(panelFondo);
     }
@@ -43,5 +58,6 @@ public class VentanaInicio extends JFrame {
             }
         }
     }
+
 
 }
