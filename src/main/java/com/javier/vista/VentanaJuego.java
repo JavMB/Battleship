@@ -7,6 +7,8 @@ public class VentanaJuego extends JFrame {
 
     private JPanel panelJugador;
     private JPanel panelEnemigo;
+    private JButton[][] botonesJugador;
+    private JButton[][] botonesEnemigo;
 
     public VentanaJuego() {
         super("BattleShip - Partida");
@@ -37,6 +39,30 @@ public class VentanaJuego extends JFrame {
         panelEnemigo.setLayout(new GridLayout(10, 10));
 
 
+        botonesJugador = new JButton[10][10];
+        botonesEnemigo = new JButton[10][10];
+
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                botonesJugador[i][j] = new JButton();
+                botonesJugador[i][j].setBackground(new Color(173, 216, 230));
+                botonesJugador[i][j].setPreferredSize(new Dimension(30, 30));
+                panelJugador.add(botonesJugador[i][j]);
+            }
+        }
+
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                botonesEnemigo[i][j] = new JButton();
+                botonesEnemigo[i][j].setBackground(new Color(173, 216, 230));
+                botonesEnemigo[i][j].setPreferredSize(new Dimension(30, 30));
+                panelEnemigo.add(botonesEnemigo[i][j]);
+            }
+        }
+
+
         panelTableros.add(panelJugador);
         panelTableros.add(panelEnemigo);
 
@@ -47,5 +73,5 @@ public class VentanaJuego extends JFrame {
         this.add(panelPrincipal);
     }
 
-
+    
 }
