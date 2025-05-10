@@ -1,4 +1,7 @@
 package com.javier.vista;
+
+import javax.swing.*;
+
 /**
  * Ventana principal del juego (Swing).
  * Contiene el tablero gráfico, botones de disparo, y toda la interacción.
@@ -12,5 +15,6 @@ package com.javier.vista;
  */
 
 
-public class VentanaPrincipal {
+public class VentanaPrincipal extends JPanel {
+
 }
