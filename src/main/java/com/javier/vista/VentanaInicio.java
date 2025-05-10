@@ -2,6 +2,8 @@ package com.javier.vista;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VentanaInicio extends JFrame {
 
@@ -30,10 +32,56 @@ public class VentanaInicio extends JFrame {
         panelTitulo.add(lblTitulo);
 
 
+        JPanel panelBotones = new JPanel();
+        panelBotones.setOpaque(false);
+        panelBotones.setLayout(new GridLayout(2, 1, 0, 10));
+
+
+        JButton btnJugar = new JButton("INICIAR PARTIDA");
+        btnJugar.setFont(new Font("Arial", Font.BOLD, 18));
+        btnJugar.setBackground(new Color(0, 100, 200));
+        btnJugar.setForeground(Color.WHITE);
+        btnJugar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iniciarJuego();
+            }
+        });
+
+
+        JButton btnSalir = new JButton("SALIR");
+        btnSalir.setFont(new Font("Arial", Font.BOLD, 18));
+        btnSalir.setBackground(new Color(200, 50, 50));
+        btnSalir.setForeground(Color.WHITE);
+        btnSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+
+        panelBotones.add(btnJugar);
+        panelBotones.add(btnSalir);
+
+
+        JPanel contenedorBotones = new JPanel();
+        contenedorBotones.setOpaque(false);
+        contenedorBotones.add(panelBotones);
+
+
         panelFondo.add(panelTitulo, BorderLayout.NORTH);
+        panelFondo.add(contenedorBotones, BorderLayout.CENTER);
 
 
         this.add(panelFondo);
+    }
+
+    public void iniciarJuego() {
+        this.setVisible(false);
+        // Aquí iría el código para abrir la ventana principal del juego
+        JOptionPane.showMessageDialog(this, "¡Iniciando partida!");
+        this.setVisible(true);
     }
 
 
