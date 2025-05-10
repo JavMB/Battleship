@@ -12,5 +12,6 @@ package com.javier.controlador;
  */
 
 
+
 public class GestorJuego {
 }
