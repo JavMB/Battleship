@@ -1,19 +1,18 @@
 package com.javier;
-/**
- * Clase principal del proyecto.
- * Inicia el juego y conecta todas las clases.
- *
- * Tareas:
- * - Crear instancia de `VentanaInicio` (o `VentanaPrincipal` directamente).
- * - Crear objetos necesarios: jugador, tablero, CPU, etc.
- * - Iniciar el flujo del juego.
- *
- * Autor: Javi
- */
 
+import com.javier.vista.VentanaInicio;
+import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // inicio la app
+                VentanaInicio ventanaInicio = new VentanaInicio();
+                ventanaInicio.setVisible(true);
+            }
+        });
     }
 }
