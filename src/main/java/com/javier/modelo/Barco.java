@@ -16,6 +16,7 @@ public class Barco {
     private static final int MAX_DISTANCIA = 5;
     private final int[] posicionInicial=new int [2] ;
     private final int[] posicionFinal= new int[2];
+    private int countDisparos;
 
 
     public Barco(boolean isVertical,int filaInicio, int columnaInicio, int filaFinal, int columnaFinal) {
@@ -24,6 +25,7 @@ public class Barco {
         posicionInicial[1]=columnaInicio;
         posicionFinal[0]=filaFinal;
         posicionFinal[1]=columnaFinal;
+        countDisparos =0;
     }
 
 
@@ -58,8 +60,20 @@ public class Barco {
         }
     }
 
+    public int getLongitud(){
+        if (posicionInicial[0] == posicionFinal[0] ) {
+            return 1+ Math.abs(posicionInicial[1] -posicionFinal[1]);
+        } else {
+            return 1+ Math.abs(posicionInicial[0] -posicionFinal[0]);
+        }
+    }
 
+    public void registrarImpacto(){
+        countDisparos++;
+    }
 
-
+    public boolean isHundido(){
+            return countDisparos >= getLongitud();
+    }
 
 }
