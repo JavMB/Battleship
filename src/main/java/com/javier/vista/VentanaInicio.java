@@ -13,7 +13,7 @@ public class VentanaInicio extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         initComponents();
-        this.setVisible(true);
+        // no llamamos a setVisible aquí, lo haremos desde el Main
     }
 
     private void initComponents() {
@@ -41,24 +41,14 @@ public class VentanaInicio extends JFrame {
         btnJugar.setFont(new Font("Arial", Font.BOLD, 18));
         btnJugar.setBackground(new Color(0, 100, 200));
         btnJugar.setForeground(Color.WHITE);
-        btnJugar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iniciarJuego();
-            }
-        });
+        btnJugar.addActionListener(e -> iniciarJuego());
 
 
         JButton btnSalir = new JButton("SALIR");
         btnSalir.setFont(new Font("Arial", Font.BOLD, 18));
         btnSalir.setBackground(new Color(200, 50, 50));
         btnSalir.setForeground(Color.WHITE);
-        btnSalir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        btnSalir.addActionListener(e -> System.exit(0));
 
 
         panelBotones.add(btnJugar);
@@ -77,20 +67,21 @@ public class VentanaInicio extends JFrame {
         this.add(panelFondo);
     }
 
-    public void iniciarJuego() {
+    private void iniciarJuego() {
         this.setVisible(false);
-        // Aquí iría el código para abrir la ventana principal del juego
-        JOptionPane.showMessageDialog(this, "¡Iniciando partida!");
-        this.setVisible(true);
+        VentanaJuego ventanaJuego = new VentanaJuego();
+        ventanaJuego.setVisible(true);
+
+        this.dispose();
     }
 
 
-    class ImagenFondo extends JPanel {
+    static class ImagenFondo extends JPanel {
         private Image imagen;
 
         public ImagenFondo() {
             try {
-                imagen = new ImageIcon("/home/javi/DAM/PROG/Battleship/src/main/resources/battleship.jpg").getImage();
+                imagen = new ImageIcon(getClass().getResource("/assets/battleship.jpg")).getImage();
             } catch (Exception e) {
                 System.out.println("Error al cargar la imagen");
             }
