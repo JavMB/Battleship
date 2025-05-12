@@ -12,5 +12,20 @@ package com.javier.modelo;
  */
 
 
-public class Celda {
+public abstract class Celda {
+    protected boolean disparada;
+    public Celda() {
+        this.disparada = false;
+    }
+
+    public boolean isDisparada() {
+        return disparada;
+    }
+
+    public void disparar() {
+        disparada = true;
+    }
+    public abstract boolean tieneBarco();
+
+
 }

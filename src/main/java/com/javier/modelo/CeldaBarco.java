@@ -11,5 +11,23 @@ package com.javier.modelo;
  */
 
 
-public class CeldaBarco {
+public class CeldaBarco extends Celda {
+    private final Barco barco;
+
+    public CeldaBarco(Barco barco) {
+
+        this.barco = barco;
+    }
+
+    @Override
+    public void disparar(){
+        super.disparar();
+        barco.registrarImpacto();
+    }
+
+    @Override
+    public boolean tieneBarco() {
+        return true;
+    }
+
 }
