@@ -11,5 +11,5 @@ package com.javier.modelo;
  */
 
 
-public class CeldaBarco {
+public class CeldaBarco extends Celda {
 }
