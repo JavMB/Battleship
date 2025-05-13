@@ -17,21 +17,19 @@ import java.util.List;
 
 
 public class Barco {
-    private List<CeldaBarco> celdasBarco;
     private Barcos tipo;
+    private int longitud;
+    private int impactosRecibidos;
 
 
-    //    public Barco(boolean isVertical, int filaInicio, int columnaInicio, int filaFinal, int columnaFinal, Barcos barcos) {
-//        isValido(isVertical, filaInicio, columnaInicio, filaFinal, columnaFinal);
-//
-//
-//        countDisparos = 0;
-//    }
     public Barco(Barcos tipo) {
         celdasBarco = new ArrayList<>();
         this.tipo = tipo;
     }
 
+    public List<CeldaBarco> getCeldasBarco() {
+        return celdasBarco;
+    }
 
     /**
      * @param isVertical    valor booleano para determinar si debe de tener la misma fila o la misma columna
