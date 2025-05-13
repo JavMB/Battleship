@@ -12,4 +12,8 @@ package com.javier.modelo;
 
 
 public class CeldaBarco extends Celda {
+    @Override
+    public Estado procesarDisparo() {
+        return null;
+    }
 }

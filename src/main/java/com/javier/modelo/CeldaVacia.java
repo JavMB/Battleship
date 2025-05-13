@@ -12,4 +12,9 @@ package com.javier.modelo;
 
 
 public class CeldaVacia extends Celda {
+
+    @Override
+    public Estado procesarDisparo() {
+        return null;
+    }
 }

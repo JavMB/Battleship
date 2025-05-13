@@ -19,6 +19,10 @@ public class VentanaJuego extends JFrame {
         this.setVisible(true);
     }
 
+    public static void update() {
+
+    }
+
     private void initComponents() {
 
         JPanel panelPrincipal = new JPanel();
@@ -73,5 +77,17 @@ public class VentanaJuego extends JFrame {
         this.add(panelPrincipal);
     }
 
-    
+
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+
+        for (Component c : panelJugador.getComponents()) {
+            c.paint(g);
+        }
+
+
+    }
+
+
 }

@@ -1,0 +1,75 @@
+package com.javier.modelo;
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+/**
+ * Clase que gestiona los movimientos de la CPU.
+ * <p>
+ * Tareas:
+ * - Elegir coordenadas aleatorias para disparar.
+ * - Evitar repetir disparos ya realizados.
+ * - Si hay tiempo: mejorar la IA para que intente acertar mejor.
+ * <p>
+ * Autor: Javi
+ */
+
+
+public class Cpu extends Player {
+    private final Random rnd;
+    private final Set<Coordenada> disparadas;
+
+    public Cpu() {
+        super();
+        this.rnd = new Random();
+        this.disparadas = new HashSet<>();
+    }
+
+    @Override
+    public Tablero generarBarcos() {
+        Celda[][] tablero = tableroPropio.tablero();
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                tablero[i][j] = new CeldaVacia();
+            }
+        }
+        for (Barcos b : Barcos.values()) {
+            for (int i = 0; i < b.getCantidad(); i++) {
+                for (int j = 0; j < b.getLongitud(); j++) {
+                    Coordenada barco = generarCeldaBarco(b.getLongitud());
+                    tablero[barco.x()][barco.y()] = new CeldaBarco();
+                }
+
+            }
+        }
+
+        return tablero;
+    }
+
+
+    @Override
+    public Coordenada disparar() {
+        int x = rnd.nextInt(0, 10); // hacer Config para los valores
+        int y = rnd.nextInt(0, 10);
+        Coordenada disparo = new Coordenada(x, y);
+        if (validarCoordenadaDisparo(disparo)) { // recursion porque la veia clara, aunq while es mejor pero no pasa nada
+            disparadas.add(disparo);
+            return disparo;
+        } else {
+            return disparar();
+        }
+    }
+
+    private boolean validarCoordenadaDisparo(Coordenada disparo) {
+        return !disparadas.contains(disparo);
+    }
+
+
+    private Coordenada generarCeldaBarco(int longitud) {
+
+
+    }
+
+
+}

@@ -4,15 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
-    private Tablero tableroPropio;
+    protected static final int CANTIDAD_PORTAAVIONES = 1;
 
-    private final List<Barco> barcos;
+    protected final Tablero tableroPropio;
+    protected final List<Barco> barcos;
 
     protected Player() {
+        this.tableroPropio = generarTablero();
         this.barcos = new ArrayList<>();
     }
 
-    public abstract Tablero generarTablero();
+    private void instanciarBarcos() {
+        for (Barcos b : Barcos.values()) {
+            for (int i = 0; i < b.getCantidad(); i++) {
+                barcos.add(new Barco(b));
+            }
+        }
+    }
+
+
+    public abstract Tablero generarBarcos();
 
     public abstract Coordenada disparar();
 
