@@ -10,7 +10,7 @@ public abstract class Player {
     protected final List<Barco> barcos;
 
     protected Player() {
-        this.tableroPropio = generarTablero();
+        this.tableroPropio = new Tablero();
         this.barcos = new ArrayList<>();
     }
 
@@ -23,7 +23,7 @@ public abstract class Player {
     }
 
 
-    public abstract Tablero generarBarcos();
+    public abstract void generarBarcos();
 
     public abstract Coordenada disparar();
 
