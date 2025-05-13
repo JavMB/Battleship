@@ -28,11 +28,12 @@ public class Cpu extends Player {
 
     @Override
     public void generarBarcos() {
-        for (Barcos b : Barcos.values()) {
-            for (int i = 0; i < b.getCantidad(); i++) {
-                for (int j = 0; j < b.getLongitud(); j++) {
+        for (Barco b : barcos) {
+            for (int i = 0; i < b.getTipo().getCantidad(); i++) {
+                for (int j = 0; j < b.getTipo().getLongitud(); j++) {
                     Coordenada barco = generarCeldaBarco(b.getLongitud());
                     tableroPropio.tablero()[barco.x()][barco.y()] = new CeldaBarco();
+                    b.getCeldasBarco().add(barco);
                 }
 
             }
