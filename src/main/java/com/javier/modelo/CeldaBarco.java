@@ -20,14 +20,26 @@ public class CeldaBarco extends Celda {
     }
 
     @Override
-    public void disparar(){
-        super.disparar();
-        barco.registrarImpacto();
+    public void disparar(int x, int y){
+        super.disparar(x,y);
+        barco.registrarImpacto(new Coordenada(x,y));
     }
 
     @Override
     public boolean tieneBarco() {
         return true;
     }
+
+
+    public boolean estaUndido(){
+        return this.barco.isHundido();
+    }
+
+
+    @Override
+    public String toString() {
+        return super.isDisparada() ? "1": "2";
+    }
+
 
 }

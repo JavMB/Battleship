@@ -13,7 +13,7 @@ package com.javier.modelo;
 
 
 public abstract class Celda {
-    protected boolean disparada;
+    private boolean disparada;
     public Celda() {
         this.disparada = false;
     }
@@ -22,10 +22,15 @@ public abstract class Celda {
         return disparada;
     }
 
-    public void disparar() {
+    public void disparar(int x, int y) {
         disparada = true;
     }
     public abstract boolean tieneBarco();
 
 
+    @Override
+    public String toString() {
+        return "Celda{" + "disparada=" + disparada + '}';
+
+    }
 }

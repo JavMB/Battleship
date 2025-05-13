@@ -1,5 +1,7 @@
 package com.javier.modelo;
 
+import java.util.Objects;
+
 /**
  * Clase que representa una coordenada en el tablero.
  * Se usa para marcar posiciones de barcos, disparos, etc.
@@ -15,12 +17,47 @@ package com.javier.modelo;
  * - El constructor debe tomar dos parámetros (uno para `x` y otro para `y`).
  * - Usa `toString()` para mostrar la coordenada como un texto bonito "(" + x + ", " + y + ")".
  *
- * Autor: Jose Luis
+ * Autor: Josep Vicent
  */
 
 public class Coordenada {
     // Aquí se van a definir los atributos x y y, y los métodos getX(), getY() y toString().
 
+    private final int x;
+    private final int y;
 
+    public Coordenada(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordenada that = (Coordenada) o;
+        return x == that.x && y == that.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "Coordenada{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 
 }
