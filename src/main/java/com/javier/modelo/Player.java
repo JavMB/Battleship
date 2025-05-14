@@ -27,7 +27,7 @@ public abstract class Player {
      * La lógica de cómo se colocan (aleatorio para CPU, manual para Humano)
      * se implementará en las subclases.
      */
-    public abstract void generarBarcos(); // Este método ahora se enfoca en la COLOCACIÓN
+    public abstract void generarBarcos(); // patron Builder
 
-    public abstract Coordenada disparar();
+    public abstract Coordenada disparar(Tablero enemigo);
 }
