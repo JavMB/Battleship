@@ -55,7 +55,7 @@ public class Cpu extends Player {
 
 
     @Override
-    public Coordenada disparar() {
+    public Coordenada disparar() { // patron Strategy podria tenerlo , mas dificultades
         int x, y;
         Coordenada disparo;
         int maxFilas = tableroPropio.getFilas();

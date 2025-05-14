@@ -18,7 +18,6 @@ import java.util.List;
 
 public class Barco {
     private Barcos tipo;
-    private int longitud;
     private int impactosRecibidos;
 
 
