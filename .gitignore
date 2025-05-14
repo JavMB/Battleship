@@ -24,7 +24,7 @@ hs_err_pid*
 *.iws
 out/
 target/
-.gradle
+.gradle/
 
 # NetBeans
 nbproject/private/
