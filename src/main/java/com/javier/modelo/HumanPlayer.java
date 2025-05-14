@@ -7,12 +7,12 @@ public class HumanPlayer extends Player {
 
 
     @Override
-    public Tablero generarBarcos() {
-        return null;
+    public void generarBarcos() {
+
     }
 
     @Override
-    public Coordenada disparar() {
+    public Coordenada disparar(Tablero enemigo) {
         return null;
     }
 }
