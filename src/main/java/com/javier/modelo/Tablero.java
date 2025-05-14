@@ -15,9 +15,21 @@ package com.javier.modelo;
 
 
 public record Tablero(Celda[][] tablero) {
+    private static final int TAMANYO_TABLERO = 10;
 
+    private Celda[][] celdas;
+
+    public Tablero(){
+        celdas = new Celda[TAMANYO_TABLERO][TAMANYO_TABLERO];
+        generarTableroVacio();
+    }
 
     private void generarTableroVacio() {
-        // que se llene de Celdas vacias porfi
+        for (int i = 0; i < TAMANYO_TABLERO; i++) {
+            for (int j = 0; j < TAMANYO_TABLERO; j++) {
+                celdas[i][j] = new CeldaVacia();
+            }
+        }
     }
+
 }
