@@ -1,5 +1,7 @@
 package com.javier.controlador;
 
+import java.util.Objects;
+
 /**
  * Clase que controla de quién es el turno (jugador o CPU).
  *
@@ -13,17 +15,59 @@ package com.javier.controlador;
  * - Usar un `enum` (enumerado) con 2 valores: `JUGADOR` y `CPU`.
  * - Asegúrate de cambiar el turno cada vez que se llame a `siguienteTurno()`.
  *
- * Autor: Jose Luis
+ * Autor: Mireya
  */
 
 public class TurnoManager {
 
     enum Turno {
+        CPU ("Es el turno de la CPU"),
+        JUGADOR ("Es tu turno");
 
+        private String texto;
+
+        Turno(String texto) {
+            this.texto = texto;
+        }
+
+        @Override
+        public String toString() {
+            return texto;
+        }
     }
 
+    private Turno turnoActual;
 
+    public TurnoManager() {
+        this.turnoActual = Turno.JUGADOR;
+    }
 
+    public Turno getTurnoActual() {
+        return turnoActual;
+    }
 
+    public void siguienteTurno(){
+        Turno[] turnos = Turno.values();
+        int siguiente = (turnoActual.ordinal() + 1) % turnos.length;
+        turnoActual = turnos[siguiente];
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        TurnoManager that = (TurnoManager) o;
+        return turnoActual == that.turnoActual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(turnoActual);
+    }
+
+    @Override
+    public String toString() {
+        return "TurnoManager{" +
+                "turnoActual=" + turnoActual +
+                '}';
+    }
 }
