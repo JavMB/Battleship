@@ -14,7 +14,6 @@ package com.javier.modelo;
 
 
 public abstract class Celda {
-    Barcos tipo;
     Coordenada coordenada;
 
 
