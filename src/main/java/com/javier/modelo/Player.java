@@ -7,10 +7,10 @@ import java.util.Set;
 
 public class Player implements Estrategia {
     protected final Tablero tableroPropio;
-    protected final List<Barco> barcos;
+    protected final List<Barco> barcos; // SOLO PARA CICLO DEL JUEGO
     protected Set<Coordenada> disparadas;
 
-    protected Player() {
+    public Player() {
         this.disparadas = new HashSet<>();
         this.tableroPropio = new Tablero(); //creado ya de vacias constructor de Tablero
         this.barcos = new ArrayList<>();
@@ -25,9 +25,15 @@ public class Player implements Estrategia {
         }
     }
 
+    // solo valida cada barco
+    public boolean validarBarco(List<Coordenada> coordenadas) {// el siguiente no colocado
 
-    public void generarBarcos() {
-    // manual barco por barco comprobando tablero
+    }
+
+    private void setBarco(List<Coordenada> barco) {
+        // MIREA esto lo llamo ya validado pero necesito que extraigas LOGICA
+        // al tablero algun metodo  que que pueda hacer tipo tableroPropio.asignar()
+        // y yap porque si no no paro de picar codigo y en la cpu algo tambien tendre asi.
     }
 
 
@@ -35,4 +41,9 @@ public class Player implements Estrategia {
     public Coordenada disparar(Tablero enemigo, Set<Coordenada> yaDisparadas) {
         return null;
     }
+
+    public Tablero getTableroPropio() {
+        return tableroPropio;
+    }
+
 }
