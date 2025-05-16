@@ -1,15 +1,18 @@
 package com.javier.modelo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public abstract class Player {
-
+public class Player implements Estrategia {
     protected final Tablero tableroPropio;
     protected final List<Barco> barcos;
+    protected Set<Coordenada> disparadas;
 
     protected Player() {
-        this.tableroPropio = new Tablero();
+        this.disparadas = new HashSet<>();
+        this.tableroPropio = new Tablero(); //creado ya de vacias constructor de Tablero
         this.barcos = new ArrayList<>();
         instanciarBarcos(); // llamada para crear la flota del jugador
     }
@@ -22,12 +25,14 @@ public abstract class Player {
         }
     }
 
-    /**
-     * Coloca los barcos de la lista 'barcos' en el 'tableroPropio'.
-     * La lógica de cómo se colocan (aleatorio para CPU, manual para Humano)
-     * se implementará en las subclases.
-     */
-    public abstract void generarBarcos(); // patron Builder
 
-    public abstract Coordenada disparar(Tablero enemigo);
+    public void generarBarcos() {
+    // manual barco por barco comprobando tablero
+    }
+
+
+    @Override
+    public Coordenada disparar(Tablero enemigo, Set<Coordenada> yaDisparadas) {
+        return null;
+    }
 }
