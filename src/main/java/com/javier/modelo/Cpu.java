@@ -20,12 +20,12 @@ public class Cpu extends Player {
     private static final int MAX_INTENTOS_COLOCACION = 100;
 
     public Cpu() {
-        super();
         this.rnd = new Random();
         this.disparadas = new HashSet<>();
+        generarBarcos();
     }
 
-    @Override
+
     public void generarBarcos() {
 
         for (Barco barcoActual : this.barcos) {
@@ -36,7 +36,7 @@ public class Cpu extends Player {
                 if (coordenadasBarco != null && !coordenadasBarco.isEmpty()) {
                     for (Coordenada coord : coordenadasBarco) {
 
-                        CeldaBarco celdaDeEsteBarco = new CeldaBarco(barcoActual, coord);
+                        CeldaBarco celdaDeEsteBarco = new CeldaBarco(barcoActual);
                         this.tableroPropio.setCelda(coord.y(), coord.x(), celdaDeEsteBarco);
 
                     }
@@ -91,7 +91,7 @@ public class Cpu extends Player {
 
         for (int i = 1; i < longitud; i++) {
             x += dx;
-            y += dy;
+            y += dy;// TODO validaciones laterales
 
 
             if (x >= 0 && y >= 0 && x < 10 && y < 10) {
@@ -106,20 +106,9 @@ public class Cpu extends Player {
     }
 
 
-    public Coordenada disparar(Tablero enemigo) { // patron Strategy podria tenerlo , mas dificultades
-        int x, y;
-        Coordenada disparo;
-        int maxFilas = tableroPropio.getFilas();
-        int maxColumnas = tableroPropio.getColumnas();
-
-        do {
-            x = rnd.nextInt(maxColumnas);
-            y = rnd.nextInt(maxFilas);
-            disparo = new Coordenada(x, y);
-        } while (disparadas.contains(disparo));
-
-        disparadas.add(disparo);
-        return disparo;
+    public Coordenada disparar(Tablero enemigo, Estrategia estrategia) {      // patron Strategy
+        setStrategy(estrategia);
+        return strategy.disparar(enemigo, disparadas);
     }
 
     public Random getRnd() {
