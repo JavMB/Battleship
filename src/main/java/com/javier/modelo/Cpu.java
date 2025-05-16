@@ -91,10 +91,9 @@ public class Cpu extends Player {
 
         for (int i = 1; i < longitud; i++) {
             x += dx;
-            y += dy;// TODO validaciones laterales
+            y += dy;
 
-
-            if (x >= 0 && y >= 0 && x < 10 && y < 10) {
+            if (x >= 0 && y >= 0 && x < 10 && y < 10) {// magic numbers pero es lo que hay
                 if (tableroPropio.tablero()[y][x] instanceof CeldaVacia) {
                     coordenadas.add(new Coordenada(x, y));
                 } else return null;
