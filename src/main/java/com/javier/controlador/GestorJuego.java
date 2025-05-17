@@ -9,33 +9,38 @@ public class GestorJuego {
     private Player jugador;
     private Cpu cpu;
     private VentanaJuego vista;
+    private Modo modoActual = Modo.COLOCACION;
+    private enum Modo { COLOCACION, DISPARO, FIN }
+
+
+
 
     public GestorJuego(VentanaJuego vista) {
         this.vista = vista;
         this.jugador = new Player();
-        generarBarcosJugador();
         this.cpu = new Cpu();
+        this.vista.setControlador(this);
 
-
-        // Mostrar tableros
         this.vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
         this.vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
+
+        vista.setModoColocacion(true);
+        vista.setModoDisparo(false);
     }
 
-    private void generarBarcosJugador() {
-        for (Barco barco : jugador.getBarcos()) {
-            jugador.nuevoBarco(barcoInteractivo());
-        }
-    }
-
-    private List<Coordenada> barcoInteractivo() {
-
-
-
-
-
+    //  cuando el usuario hace click en el tablero del jugador para colocar barcos
+    public void manejarClickJugador(int fila, int col) {
+        //TODO en modo colocar hare
 
     }
 
+    // cuando el usuario hace click en el tablero enemigo para disparar
+    public void manejarClickEnemigo(int fila, int col) {
 
+    }
+
+
+    public void manejarInputTexto(Coordenada cord){}
+    //Josep esto habra un input text y un boton con un listener asociado que al darla activa este evento, que basicamente
+    //es lo mismo que manejarclickjugador , depende del estado si es inicio o disparo pues esa cordenada intentara poner un barco, o disparar a un barco enemigo
 }
