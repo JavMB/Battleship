@@ -26,14 +26,22 @@ public class Player implements Estrategia {
     }
 
     // solo valida cada barco
-    public boolean validarBarco(List<Coordenada> coordenadas) {// el siguiente no colocado
+    public boolean validarBarco(List<Coordenada> coordenadas) {
+
+
+
+
 
     }
 
     private void setBarco(List<Coordenada> barco) {
-        // MIREA esto lo llamo ya validado pero necesito que extraigas LOGICA
+        // mireya esto lo llamo ya validado pero necesito que extraigas logica
         // al tablero algun metodo  que que pueda hacer tipo tableroPropio.asignar()
-        // y yap porque si no no paro de picar codigo y en la cpu algo tambien tendre asi.
+        // lo que me refiero es que no el jugador a mano coloque estas cordenadas como nuevas CeldaBarco
+        // en el tablero si no que el tablero tenga metodos utiles, que me ahorren trabajo
+        // pero piensa que al final es solo un tablero su proposito es contener informacion y celdas
+        // saber darte la que le pides y saber colocar las que le pasas , con un minimo de validaciones de proteccion.
+
     }
 
 
@@ -46,4 +54,11 @@ public class Player implements Estrategia {
         return tableroPropio;
     }
 
+    public List<Barco> getBarcos() {
+        return barcos;
+    }
+
+    public Set<Coordenada> getDisparadas() {
+        return disparadas;
+    }
 }
