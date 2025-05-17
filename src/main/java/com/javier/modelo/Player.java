@@ -26,7 +26,7 @@ public class Player implements Estrategia {
     }
 
     // solo valida cada barco
-    public boolean validarBarco(List<Coordenada> coordenadas) {
+    private boolean validarBarco(List<Coordenada> coordenadas) {
 
 
 
@@ -34,7 +34,11 @@ public class Player implements Estrategia {
 
     }
 
-    private void setBarco(List<Coordenada> barco) {
+    private void nuevoBarco(List<Coordenada> barco) {
+        
+        if (validarBarco(barco)){
+            
+        }
         // mireya esto lo llamo ya validado pero necesito que extraigas logica
         // al tablero algun metodo  que que pueda hacer tipo tableroPropio.asignar()
         // lo que me refiero es que no el jugador a mano coloque estas cordenadas como nuevas CeldaBarco
