@@ -1,28 +1,40 @@
 package com.javier.controlador;
 
+import com.javier.modelo.*;
 import com.javier.vista.VentanaJuego;
 
-import java.util.Timer;
-
-/**
- * Clase que gestiona el flujo general del juego.
- * Conecta la lógica del turno, el tablero, la CPU y la interfaz.
- * <p>
- * Tareas:
- * - Coordinar los turnos y llamadas entre jugador/CPU.
- * - Llamar a los métodos de disparo, comprobar victoria.
- * - Servir como puente entre la interfaz y la lógica.
- * <p>
- * Autor: Javi
- */
-
+import java.util.List;
 
 public class GestorJuego {
+    private Player jugador;
+    private Cpu cpu;
+    private VentanaJuego vista;
 
-    private Timer timer;
+    public GestorJuego(VentanaJuego vista) {
+        this.vista = vista;
+        this.jugador = new Player();
+        generarBarcosJugador();
+        this.cpu = new Cpu();
 
 
-    private void eventos() {
+        // Mostrar tableros
+        this.vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
+        this.vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
+    }
+
+    private void generarBarcosJugador() {
+        for (Barco barco : jugador.getBarcos()) {
+            jugador.nuevoBarco(barcoInteractivo());
+        }
+    }
+
+    private List<Coordenada> barcoInteractivo() {
+
+
+
+
+
+
     }
 
 
