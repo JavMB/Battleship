@@ -3,13 +3,13 @@ package com.javier.controlador;
 import com.javier.modelo.*;
 import com.javier.vista.VentanaJuego;
 
-import java.util.List;
 
 public class GestorJuego {
     private Player jugador;
     private Cpu cpu;
     private VentanaJuego vista;
     private Modo modoActual = Modo.COLOCACION;
+    private TurnoManager turnos = new TurnoManager();
     private enum Modo { COLOCACION, DISPARO, FIN }
 
 
@@ -37,6 +37,11 @@ public class GestorJuego {
     // cuando el usuario hace click en el tablero enemigo para disparar
     public void manejarClickEnemigo(int fila, int col) {
 
+    }
+
+    private void realizarTurnoCpu() {
+        // Ddsparo de la CPU
+        turnos.siguienteTurno();
     }
 
 
