@@ -34,7 +34,7 @@ public class Player implements Estrategia {
 
     }
 
-    private void nuevoBarco(List<Coordenada> barco) {
+    public void nuevoBarco(List<Coordenada> barco) {
         
         if (validarBarco(barco)){
             
