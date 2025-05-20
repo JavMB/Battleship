@@ -7,7 +7,7 @@ package com.javier.modelo;
  * - Contar aciertos (impactos a barcos).
  * - Métodos `registrarDisparo(boolean acierto)`, `getDisparos()`, `getAciertos()`.
  *
- * Autor: Jose Luis
+ * Autor: Mireya
  */
 
 
