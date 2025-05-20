@@ -22,13 +22,9 @@ public class Barco {
 
 
     public Barco(Barcos tipo) {
-        celdasBarco = new ArrayList<>();
         this.tipo = tipo;
     }
 
-    public List<CeldaBarco> getCeldasBarco() {
-        return celdasBarco;
-    }
 
     /**
      * @param isVertical    valor booleano para determinar si debe de tener la misma fila o la misma columna

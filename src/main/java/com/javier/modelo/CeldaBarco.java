@@ -13,6 +13,11 @@ package com.javier.modelo;
 
 public class CeldaBarco extends Celda {
     private final Barco barco;
+
+    public CeldaBarco(Barco barco) {
+        this.barco = barco;
+    }
+
     @Override
     public Estado procesarDisparo() {
         return null;

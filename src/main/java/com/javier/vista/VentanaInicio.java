@@ -1,9 +1,10 @@
 package com.javier.vista;
 
+import com.javier.controlador.GestorJuego;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class VentanaInicio extends JFrame {
 
@@ -71,7 +72,6 @@ public class VentanaInicio extends JFrame {
         this.setVisible(false);
         VentanaJuego ventanaJuego = new VentanaJuego();
         ventanaJuego.setVisible(true);
-
         this.dispose();
     }
 
