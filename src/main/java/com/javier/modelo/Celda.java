@@ -18,9 +18,14 @@ public abstract class Celda {
         this.disparada = false;
     }
 
-    public boolean isDisparada() {
+    protected boolean isDisparada() {
         return disparada;
     }
+
+    public final boolean esImpactada() {
+        return isDisparada() && tieneBarco();
+    }
+
 
     public void disparar(int x, int y) {
         disparada = true;
