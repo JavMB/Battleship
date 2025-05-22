@@ -14,16 +14,16 @@ package com.javier.modelo;
 
 
 public abstract class Celda {
-    Coordenada coordenada;
+    protected Coordenada coordenada;
 
+    protected Celda(Coordenada coordenada) {
+        this.coordenada = coordenada;
+    }
 
-    /**
-     * Procesa un disparo en esta celda.
-     * Actualiza el estado de la celda y devuelve el resultado del disparo.
-     *
-     * @return El resultado del disparo (AGUA, TOCADO, HUNDIDO).
-     */
+    public Coordenada getCoordenada() {
+        return coordenada;
+    }
+
     public abstract Estado procesarDisparo();
-
-
 }
+

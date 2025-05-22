@@ -1,5 +1,5 @@
 package com.javier.modelo;
 
 public enum Estado {
-    AGUA,TOCADO,HUNDIDO,BARCO
+    AGUA,NADA,TOCADO,HUNDIDO,BARCO,YA_DISPARADO
 }

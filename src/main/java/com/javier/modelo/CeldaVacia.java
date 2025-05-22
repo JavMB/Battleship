@@ -13,8 +13,21 @@ package com.javier.modelo;
 
 public class CeldaVacia extends Celda {
 
+    private Estado estado;
+    public CeldaVacia(Coordenada coordenada) {
+        super(coordenada);
+        this.estado = Estado.NADA;
+    }
+
     @Override
     public Estado procesarDisparo() {
-        return null;
+        if (estado == Estado.NADA) {
+            estado = Estado.AGUA;
+            return estado;
+
+        }else{
+            return Estado.YA_DISPARADO;
+        }
+
     }
 }
