@@ -36,7 +36,7 @@ public class Cpu extends Player {
                 if (coordenadasBarco != null && !coordenadasBarco.isEmpty()) {
                     for (Coordenada coord : coordenadasBarco) {
 
-                        CeldaBarco celdaDeEsteBarco = new CeldaBarco(barcoActual);
+                        CeldaBarco celdaDeEsteBarco = new CeldaBarco(coord, barcoActual);
                         this.tableroPropio.setCelda(coord.y(), coord.x(), celdaDeEsteBarco);
 
                     }
@@ -58,8 +58,8 @@ public class Cpu extends Player {
         List<Coordenada> celdasBarco;
         Direccion direccion = Direccion.values()[rnd.nextInt(Direccion.values().length)];
         do {
-            int columna = rnd.nextInt(tableroPropio.tablero()[0].length);
-            int fila = rnd.nextInt(tableroPropio.tablero().length);
+            int columna = rnd.nextInt(tableroPropio.getCeldas()[0].length);
+            int fila = rnd.nextInt(tableroPropio.getCeldas().length);
             Coordenada cord = new Coordenada(columna, fila);
             celdasBarco = comprobarEjes(cord, direccion, longitud);
 
@@ -94,7 +94,7 @@ public class Cpu extends Player {
             y += dy;
 
             if (x >= 0 && y >= 0 && x < 10 && y < 10) {// magic numbers pero es lo que hay
-                if (tableroPropio.tablero()[y][x] instanceof CeldaVacia) {
+                if (tableroPropio.getCeldas()[y][x] instanceof CeldaVacia) {
                     coordenadas.add(new Coordenada(x, y));
                 } else return null;
             } else return null;

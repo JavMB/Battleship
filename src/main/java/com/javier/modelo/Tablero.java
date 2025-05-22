@@ -61,4 +61,8 @@ public class Tablero{
                 "celdas=" + Arrays.toString(celdas) +
                 '}';
     }
+
+    public void setCelda(int y, int x, CeldaBarco celdaDeEsteBarco) {
+
+    }
 }
