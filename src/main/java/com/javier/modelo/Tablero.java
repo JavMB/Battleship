@@ -38,7 +38,7 @@ public class Tablero{
     private void generarTableroVacio() {
         for (int i = 0; i < TAMANYO_TABLERO; i++) {
             for (int j = 0; j < TAMANYO_TABLERO; j++) {
-                celdas[i][j] = new CeldaVacia();
+                celdas[i][j] = new CeldaVacia(new Coordenada(i, j));
             }
         }
     }
