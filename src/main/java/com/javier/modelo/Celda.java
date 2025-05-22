@@ -25,5 +25,9 @@ public abstract class Celda {
     }
 
     public abstract Estado procesarDisparo();
+
+    public Estado getEstado() {
+        // josep el estado es igual para los dos tipos de celdas , no puedo usar el polimofismo bien en VentanaJuego
+    }
 }
 

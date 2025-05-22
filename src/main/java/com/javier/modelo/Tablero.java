@@ -65,4 +65,7 @@ public class Tablero{
     public void setCelda(int y, int x, CeldaBarco celdaDeEsteBarco) {
 
     }
+
+    public Celda getCelda(int fila, int col) {
+    }
 }
