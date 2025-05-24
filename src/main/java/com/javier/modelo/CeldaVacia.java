@@ -13,17 +13,16 @@ package com.javier.modelo;
 
 public class CeldaVacia extends Celda {
 
-    private Estado estado;
+
     public CeldaVacia(Coordenada coordenada) {
-        super(coordenada);
-        this.estado = Estado.NADA;
+        super(coordenada,Estado.NADA);
     }
 
     @Override
     public Estado procesarDisparo() {
-        if (estado == Estado.NADA) {
-            estado = Estado.AGUA;
-            return estado;
+        if (getEstado() == Estado.NADA) {
+            setEstado(Estado.AGUA);
+            return getEstado();
 
         }else{
             return Estado.YA_DISPARADO;

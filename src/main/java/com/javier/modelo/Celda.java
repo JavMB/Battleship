@@ -15,9 +15,10 @@ package com.javier.modelo;
 
 public abstract class Celda {
     protected Coordenada coordenada;
-
-    protected Celda(Coordenada coordenada) {
+    private Estado estado;
+    protected Celda(Coordenada coordenada, Estado estado) {
         this.coordenada = coordenada;
+        this.estado = estado;
     }
 
     public Coordenada getCoordenada() {
@@ -25,5 +26,12 @@ public abstract class Celda {
     }
 
     public abstract Estado procesarDisparo();
+    public Estado getEstado() {
+        return estado;
+    }
+
+    protected void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 }
 
