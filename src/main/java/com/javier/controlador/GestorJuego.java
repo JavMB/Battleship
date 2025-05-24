@@ -32,6 +32,9 @@ public class GestorJuego {
     public void manejarClickJugador(int fila, int col) {
         //TODO en modo colocar hare
 
+
+        comprobarPartida();
+
     }
 
     // cuando el usuario hace click en el tablero enemigo para disparar
@@ -42,7 +45,21 @@ public class GestorJuego {
     private void realizarTurnoCpu() {
         // Ddsparo de la CPU
         turnos.siguienteTurno();
+        comprobarPartida();
     }
+
+    private void comprobarPartida() {
+
+    }
+
+
+
+
+
+
+
+
+
 
 
     public void manejarInputTexto(Coordenada cord){}
