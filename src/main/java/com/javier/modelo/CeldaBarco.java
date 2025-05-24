@@ -15,24 +15,23 @@ package com.javier.modelo;
 
 public class CeldaBarco extends Celda {
     private final Barco barco;
-    private Estado estado;
 
     public CeldaBarco(Coordenada coordenada,Barco barco) {
-        super(coordenada);
+        super(coordenada, Estado.BARCO);
         this.barco = barco;
-        this.estado = Estado.BARCO;
+
     }
 
     @Override
     public Estado procesarDisparo() {
-        if (estado.equals(Estado.BARCO)) {
+        if (getEstado().equals(Estado.BARCO)) {
             barco.registrarImpacto();
             if (!(barco.isHundido())){
-                estado = Estado.TOCADO;
-                return estado;
+                setEstado(Estado.TOCADO);
+                return getEstado();
             }else {
-                estado = Estado.HUNDIDO;
-                return estado;
+                setEstado(Estado.HUNDIDO);
+                return getEstado();
             }
 
         }
