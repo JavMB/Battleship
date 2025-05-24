@@ -26,12 +26,14 @@ public abstract class Celda {
     }
 
     public abstract Estado procesarDisparo();
+
     public Estado getEstado() {
         return estado;
     }
 
     protected void setEstado(Estado estado) {
         this.estado = estado;
+
     }
 }
 

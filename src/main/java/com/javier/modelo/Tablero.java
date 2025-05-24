@@ -38,7 +38,7 @@ public class Tablero{
     private void generarTableroVacio() {
         for (int i = 0; i < TAMANYO_TABLERO; i++) {
             for (int j = 0; j < TAMANYO_TABLERO; j++) {
-                celdas[i][j] = new CeldaVacia();
+                celdas[i][j] = new CeldaVacia(new Coordenada(i, j));
             }
         }
     }
@@ -60,5 +60,13 @@ public class Tablero{
         return "Tablero{" +
                 "celdas=" + Arrays.toString(celdas) +
                 '}';
+    }
+
+    public void setCelda(int y, int x, CeldaBarco celdaDeEsteBarco) {
+        celdas[x][y] = celdaDeEsteBarco;
+    }
+
+    public Celda getCelda(int fila, int col) {
+        return celdas[fila][col];
     }
 }
