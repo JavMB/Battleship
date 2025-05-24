@@ -1,6 +1,9 @@
 package com.javier.modelo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class EstrategiaTocaryHundir implements Estrategia{
     private final Random random = new Random();
@@ -17,7 +20,7 @@ public class EstrategiaTocaryHundir implements Estrategia{
             for (int j = 0; j < columnas; j++) {
                 Coordenada cord = new Coordenada(i, j);
                 Celda celda = celdas[i][j];
-                if (celda.getEstado().equals(Estado.TOCADO) && celda instanceof CeldaBarco){
+                if (celda.getEstado() == (Estado.TOCADO) && celda instanceof CeldaBarco){
                     objetivos.add(cord);
                 }
             }
@@ -48,7 +51,6 @@ public class EstrategiaTocaryHundir implements Estrategia{
     private List<Coordenada> buscarExtensionesEnLinea(Coordenada inicio, Celda[][] celdas){
         int filas = celdas.length;
         int columnas = celdas[0].length;
-        List<Coordenada> objetivos = new ArrayList<>();
         List<Coordenada> horizontal = new ArrayList<>();
         horizontal.addAll(buscarEnDireccion(inicio, -1, 0, celdas));
         horizontal.addAll(buscarEnDireccion(inicio, 1, 0, celdas));
