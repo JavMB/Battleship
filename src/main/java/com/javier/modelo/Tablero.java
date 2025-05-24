@@ -2,17 +2,13 @@ package com.javier.modelo;
 
 import java.util.Arrays;
 import java.util.Objects;
-
-
-
+import com.javier.vista.Config;
 
 public class Tablero{
-    private static final int TAMANYO_TABLERO = 10;
-
     private Celda[][] celdas;
 
     public Tablero(){
-        celdas = new Celda[TAMANYO_TABLERO][TAMANYO_TABLERO];
+        celdas = new Celda[Config.FILAS_TABLERO][Config.COLUMNAS_TABLERO];
         generarTableroVacio();
     }
 
@@ -25,8 +21,8 @@ public class Tablero{
     }
 
     private void generarTableroVacio() {
-        for (int i = 0; i < TAMANYO_TABLERO; i++) {
-            for (int j = 0; j < TAMANYO_TABLERO; j++) {
+        for (int i = 0; i < celdas.length; i++) {
+            for (int j = 0; j < celdas[i].length; j++) {
                 celdas[i][j] = new CeldaVacia(new Coordenada(i, j));
             }
         }

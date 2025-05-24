@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import com.javier.vista.Config;
 
 /**
  * Clase que gestiona los movimientos de la CPU.
@@ -17,7 +18,6 @@ public class Cpu extends Player {
 
     private final Random rnd;
     private Estrategia strategy;
-    private static final int MAX_INTENTOS_COLOCACION = 100;
 
     public Cpu() {
         this.rnd = new Random();
@@ -31,7 +31,7 @@ public class Cpu extends Player {
         for (Barco barcoActual : this.barcos) {
             boolean colocado = false;
             int intentos = 0;
-            while (!colocado && intentos < MAX_INTENTOS_COLOCACION) {
+            while (!colocado && intentos < Config.MAX_INTENTOS_COLOCACION) {
                 List<Coordenada> coordenadasBarco = encontrarPosicionParaBarco(barcoActual.getLongitud());
                 if (coordenadasBarco != null && !coordenadasBarco.isEmpty()) {
                     for (Coordenada coord : coordenadasBarco) {
