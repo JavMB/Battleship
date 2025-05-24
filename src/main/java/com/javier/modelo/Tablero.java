@@ -67,6 +67,6 @@ public class Tablero{
     }
 
     public Celda getCelda(int fila, int col) {
-        return celdas[col][fila];
+        return celdas[fila][col];
     }
 }
