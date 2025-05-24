@@ -28,7 +28,7 @@ public class Player implements Estrategia {
     // solo valida cada barco
     private boolean validarBarco(List<Coordenada> coordenadas) {
 
-
+        return true;
 
 
 
