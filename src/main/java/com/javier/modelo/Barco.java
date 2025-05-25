@@ -25,7 +25,9 @@ public class Barco {
     }
 
     public void registrarImpacto() {
-        impactosRecibidos++;
+        if (impactosRecibidos < getLongitud()) {
+            impactosRecibidos++;
+        }
     }
 
     public boolean isHundido() {

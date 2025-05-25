@@ -13,9 +13,9 @@ public class CeldaBarco extends Celda {
         if (!tocada) {
             tocada = true;
             barco.registrarImpacto();
-            return true; // true = impacto
+            return true;
         }
-        return false; // ya disparado anteriormente
+        return false;
     }
 
     public Barco getBarco() {
