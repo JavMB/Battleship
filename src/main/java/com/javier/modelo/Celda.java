@@ -1,29 +1,25 @@
 package com.javier.modelo;
 
-
-
-
 public abstract class Celda {
     protected Coordenada coordenada;
-    private Estado estado;
-    protected Celda(Coordenada coordenada, Estado estado) {
+    protected boolean tocada;
+
+    protected Celda(Coordenada coordenada) {
         this.coordenada = coordenada;
-        this.estado = estado;
+        this.tocada = false;
     }
 
     public Coordenada getCoordenada() {
         return coordenada;
     }
 
-    public abstract Estado procesarDisparo();
-
-    public Estado getEstado() {
-        return estado;
+    public boolean isTocada() {
+        return tocada;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-
+    public void setTocada(boolean tocada) {
+        this.tocada = tocada;
     }
+
+    public abstract boolean procesarDisparo();
 }
-

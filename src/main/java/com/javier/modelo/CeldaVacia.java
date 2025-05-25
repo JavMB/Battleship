@@ -1,23 +1,16 @@
 package com.javier.modelo;
 
-
-
 public class CeldaVacia extends Celda {
-
-
     public CeldaVacia(Coordenada coordenada) {
-        super(coordenada,Estado.NADA);
+        super(coordenada);
     }
 
     @Override
-    public Estado procesarDisparo() {
-        if (getEstado() == Estado.NADA) {
-            setEstado(Estado.AGUA);
-            return getEstado();
-
-        }else{
-            return Estado.YA_DISPARADO;
+    public boolean procesarDisparo() {
+        if (!tocada) {
+            tocada = true;
+            return false; // false = agua/fallo
         }
-
+        return false; // ya disparado anteriormente
     }
 }
