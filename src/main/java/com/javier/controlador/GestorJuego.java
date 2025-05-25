@@ -1,5 +1,6 @@
 package com.javier.controlador;
 
+import com.javier.audio.ReproductorEfectos;
 import com.javier.modelo.*;
 import com.javier.vista.Config;
 import com.javier.vista.VentanaJuego;
@@ -165,10 +166,13 @@ public class GestorJuego {
             vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
 
             if (resultado == Estado.AGUA) {
+                ReproductorEfectos.getInstance().agua();
                 vista.mostrarMensaje("¡Agua! Disparaste en (" + col + "," + fila + ")");
             } else if (resultado == Estado.TOCADO) {
+                ReproductorEfectos.getInstance().tocado();
                 vista.mostrarMensaje("¡Tocado! Impacto en (" + col + "," + fila + ")");
             } else if (resultado == Estado.HUNDIDO) {
+                ReproductorEfectos.getInstance().hundir();
                 vista.mostrarMensaje("¡HUNDIDO! Has hundido un barco enemigo en (" + col + "," + fila + ")");
                 CeldaBarco celdaBarco = (CeldaBarco) celdaObjetivoCPU;
                 for (Coordenada c : celdaBarco.getBarco().getCoordenadas()) {
