@@ -170,8 +170,7 @@ public class VentanaJuego extends JFrame {
      * Obtiene el color para una celda del tablero del jugador
      */
     private Color obtenerColorCeldaJugador(Celda celda) {
-        if (celda instanceof CeldaBarco) {
-            CeldaBarco celdaBarco = (CeldaBarco) celda;
+        if (celda instanceof CeldaBarco celdaBarco) {
             if (celda.isTocada()) {
                 if (celdaBarco.getBarco().isHundido()) {
                     return COLOR_HUNDIDO;
