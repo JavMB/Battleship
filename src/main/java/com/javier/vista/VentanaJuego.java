@@ -10,7 +10,6 @@ import java.awt.*;
 
 public class VentanaJuego extends JFrame {
 
-    private static final int TAMANO_TABLERO = 10;
     private static final Color COLOR_AGUA = new Color(173, 216, 230);
 
     private JPanel panelJugador;
@@ -53,7 +52,7 @@ public class VentanaJuego extends JFrame {
     }
 
     private JPanel crearPanelTablero(String titulo) {
-        JPanel panel = new JPanel(new GridLayout(TAMANO_TABLERO, TAMANO_TABLERO));
+        JPanel panel = new JPanel(new GridLayout(Config.FILAS_TABLERO, Config.COLUMNAS_TABLERO));
         panel.setBorder(BorderFactory.createTitledBorder(titulo));
         return panel;
     }
@@ -66,9 +65,9 @@ public class VentanaJuego extends JFrame {
      * @return matriz de botones
      */
     private JButton[][] crearBotonera(JPanel panel, boolean habilitar, boolean esJugador) {
-        JButton[][] botones = new JButton[TAMANO_TABLERO][TAMANO_TABLERO];
-        for (int fila = 0; fila < TAMANO_TABLERO; fila++) {
-            for (int col = 0; col < TAMANO_TABLERO; col++) {
+        JButton[][] botones = new JButton[Config.FILAS_TABLERO][Config.COLUMNAS_TABLERO];
+        for (int fila = 0; fila < Config.FILAS_TABLERO; fila++) {
+            for (int col = 0; col < Config.COLUMNAS_TABLERO; col++) {
                 JButton boton = new JButton();
                 boton.setBackground(COLOR_AGUA);
                 boton.setPreferredSize(new Dimension(30, 30));
@@ -101,8 +100,8 @@ public class VentanaJuego extends JFrame {
      * Actualiza la vista del tablero enemigo, coloreando los botones según el estado del modelo.
      */
     public void actualizarVistaTableroEnemigo(Tablero tableroEnemigo) {
-        for (int fila = 0; fila < TAMANO_TABLERO; fila++) {
-            for (int col = 0; col < TAMANO_TABLERO; col++) {
+        for (int fila = 0; fila < Config.FILAS_TABLERO; fila++) {
+            for (int col = 0; col < Config.COLUMNAS_TABLERO; col++) {
                 Estado estado = tableroEnemigo.getCelda(fila, col).getEstado();
                 botonesEnemigo[fila][col].setBackground(colorPorEstado(estado));
             }
@@ -113,8 +112,8 @@ public class VentanaJuego extends JFrame {
      * Actualiza la vista del tablero del jugador.
      */
     public void actualizarVistaTableroJugador(Tablero tableroJugador) {
-        for (int fila = 0; fila < TAMANO_TABLERO; fila++) {
-            for (int col = 0; col < TAMANO_TABLERO; col++) {
+        for (int fila = 0; fila < Config.FILAS_TABLERO; fila++) {
+            for (int col = 0; col < Config.COLUMNAS_TABLERO; col++) {
                 Estado estado = tableroJugador.getCelda(fila, col).getEstado();
                 botonesJugador[fila][col].setBackground(colorPorEstado(estado));
             }
@@ -127,8 +126,8 @@ public class VentanaJuego extends JFrame {
      * Si modoColocacion=false: se deshabilita el tablero del jugador.
      */
     public void setModoColocacion(boolean modoColocacion) {
-        for (int fila = 0; fila < TAMANO_TABLERO; fila++) {
-            for (int col = 0; col < TAMANO_TABLERO; col++) {
+        for (int fila = 0; fila < Config.FILAS_TABLERO; fila++) {
+            for (int col = 0; col < Config.COLUMNAS_TABLERO; col++) {
                 botonesJugador[fila][col].setEnabled(modoColocacion);
             }
         }
@@ -140,8 +139,8 @@ public class VentanaJuego extends JFrame {
      * Si modoDisparo=false: se deshabilita el tablero enemigo.
      */
     public void setModoDisparo(boolean modoDisparo) {
-        for (int fila = 0; fila < TAMANO_TABLERO; fila++) {
-            for (int col = 0; col < TAMANO_TABLERO; col++) {
+        for (int fila = 0; fila < Config.FILAS_TABLERO; fila++) {
+            for (int col = 0; col < Config.COLUMNAS_TABLERO; col++) {
                 botonesEnemigo[fila][col].setEnabled(modoDisparo);
             }
         }

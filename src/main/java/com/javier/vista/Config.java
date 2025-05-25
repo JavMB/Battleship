@@ -1,6 +1,9 @@
 package com.javier.vista;
 
-
 public class Config {
-    // Aquí se crearán las constantes del juego, todo lo que veas sacable a config ponerlo aqui para tener todo controlable
+    public static final int FILAS_TABLERO = 10;
+    public static final int COLUMNAS_TABLERO = 10;
+
+    /** Número máximo de intentos para colocar un barco */
+    public static final int MAX_INTENTOS_COLOCACION = 100;
 }
