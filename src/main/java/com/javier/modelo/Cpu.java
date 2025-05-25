@@ -1,5 +1,7 @@
 package com.javier.modelo;
 
+import com.javier.vista.Config;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,11 +34,6 @@ public class Cpu extends Player {
     private Estrategia strategy;
 
     /**
-     * Número máximo de intentos para colocar un barco
-     */
-    private static final int MAX_INTENTOS_COLOCACION = 100;
-
-    /**
      * Constructor por defecto.
      * Inicializa el generador de números aleatorios, el conjunto de disparos realizados
      * y genera los barcos en el tablero propio.
@@ -61,7 +58,7 @@ public class Cpu extends Player {
         for (Barco barcoActual : this.barcos) {
             boolean colocado = false;
             int intentos = 0;
-            while (!colocado && intentos < MAX_INTENTOS_COLOCACION) {
+            while (!colocado && intentos < Config.MAX_INTENTOS_COLOCACION) {
                 List<Coordenada> coordenadasBarco = encontrarPosicionParaBarco(barcoActual.getLongitud());
                 if (coordenadasBarco != null && !coordenadasBarco.isEmpty()) {
                     for (Coordenada coord : coordenadasBarco) {
