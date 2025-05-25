@@ -4,9 +4,8 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.URL;
 
-
 class Audio {
-    private Clip clip;
+    private final Clip clip;
 
     /**
      * Crea una instancia de Audio cargando un archivo .wav desde el classpath.
@@ -48,8 +47,13 @@ class Audio {
     /**
      * Inicia la reproducción del clip desde la posición actual.
      */
-    void play() {
-        this.clip.start();
+    void play(boolean loop) {
+        clip.setFramePosition(0);
+        if (loop) {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } else {
+            clip.start();
+        }
     }
 
     /**
@@ -70,8 +74,8 @@ class Audio {
     /**
      * Reinicia el clip desde el inicio y lo reproduce nuevamente.
      */
-    void reStart() {
+    void reStart(boolean loop) {
         reset();
-        play();
+        play(loop);
     }
 }

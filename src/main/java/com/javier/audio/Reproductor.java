@@ -1,7 +1,6 @@
 package com.javier.audio;
 
-
-public class Reproductor {
+public abstract class Reproductor {
     private final Audio[] listaReproduccion;
     private int posicion;
 
@@ -13,7 +12,7 @@ public class Reproductor {
      */
     public Reproductor(Audio... audios) {
         if (audios == null || audios.length == 0) {
-            throw new IllegalArgumentException("Audios array is null or empty");
+            throw new IllegalArgumentException("Audio array es null o vacio");
         }
         listaReproduccion = audios;
         posicion = 0;
@@ -22,9 +21,11 @@ public class Reproductor {
     /**
      * Reproduce el sonido actual en la posición activa de la lista.
      */
-    public void play() {
-        listaReproduccion[posicion].play();
+    public void play(boolean loop) {
+        listaReproduccion[posicion].play(loop);
     }
+
+    protected abstract void play();
 
     /**
      * Detiene la reproducción del sonido actual.
@@ -46,7 +47,8 @@ public class Reproductor {
      * Reinicia el sonido actual desde el principio y lo reproduce.
      */
     public void reStartSound() {
-        listaReproduccion[posicion].reStart();
+        boolean loop = this instanceof ReproductorMusica;
+        listaReproduccion[posicion].reStart(loop);
     }
 
     /**
