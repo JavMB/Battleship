@@ -170,11 +170,6 @@ public class GestorJuego {
                 vista.mostrarMensaje("¡Tocado! Impacto en (" + col + "," + fila + ")");
             } else if (resultado == Estado.HUNDIDO) {
                 vista.mostrarMensaje("¡HUNDIDO! Has hundido un barco enemigo en (" + col + "," + fila + ")");
-                CeldaBarco celdaBarco = (CeldaBarco) celdaObjetivoCPU;
-                for (Coordenada c : celdaBarco.getBarco().getCoordenadas()) {
-                    cpu.getTableroPropio().getCelda(c.y(), c.x()).setEstado(Estado.HUNDIDO);
-                }
-                vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
             }
 
             if (comprobarFinDeJuego()) {
