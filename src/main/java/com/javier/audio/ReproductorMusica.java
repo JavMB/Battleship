@@ -4,8 +4,9 @@ package com.javier.audio;
 public class ReproductorMusica extends Reproductor {
 
     private static ReproductorMusica instancia;
+
     private ReproductorMusica() {
-        super(new Audio("musica/Menu.wav"),new Audio("musica/Battle.wav"));
+        super(new Audio("musica/Menu.wav"), new Audio("musica/Battle.wav"));
     }
 
     public static ReproductorMusica getInstancia() {

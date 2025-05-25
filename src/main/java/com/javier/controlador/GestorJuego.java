@@ -1,6 +1,7 @@
 package com.javier.controlador;
 
 import com.javier.audio.ReproductorEfectos;
+import com.javier.audio.ReproductorMusica;
 import com.javier.modelo.*;
 import com.javier.vista.Config;
 import com.javier.vista.VentanaJuego;
@@ -240,9 +241,12 @@ public class GestorJuego {
     private void finalizarPartida(boolean jugadorGano) {
         modoActual = Modo.FIN;
         vista.bloquearTableros();
+        ReproductorMusica.getInstancia().stop();
         if (jugadorGano) {
+            ReproductorEfectos.getInstance().win();
             vista.mostrarVictoria("¡FELICIDADES! ¡Has hundido toda la flota enemiga!");
         } else {
+            ReproductorEfectos.getInstance().lose();
             vista.mostrarDerrota("¡Has perdido! Toda tu flota ha sido hundida.");
         }
 
