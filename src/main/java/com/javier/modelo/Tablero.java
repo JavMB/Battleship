@@ -19,7 +19,7 @@ public class Tablero {
     }
 
     /**
-     * Metodo que se llama al crear el tablero para llenar las celdas con celdaVacia directamente
+     * Método que se llama al crear el tablero para llenar las celdas con celdaVacia directamente
      */
     public void generarTableroVacio() {
         for (int i = 0; i < Config.FILAS_TABLERO; i++) {
@@ -49,7 +49,7 @@ public class Tablero {
     }
 
     /**
-     * Metodo para asignar barcos a celdas
+     * Método para asignar barcos a celdas
      * @param fila La fila en la que se encuentra el barco
      * @param col La columna en la que se encuentra el barco
      * @param celdaDeEsteBarco La CeldaBarco que va en la celda
@@ -59,7 +59,7 @@ public class Tablero {
     }
 
     /**
-     * Metodo para devolver uan celda específica
+     * Método para devolver una celda específica
      * @param fila La fila en la que se encuentra la celda
      * @param col La columna en la que se encuentra la celda
      * @return La celda que hay en esa fila y columna
