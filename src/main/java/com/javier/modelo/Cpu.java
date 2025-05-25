@@ -41,7 +41,15 @@ public class Cpu extends Player {
     public Cpu() {
         this.rnd = new Random();
         this.disparadas = new HashSet<>();
-        Barcos[] flota = {Barcos.PORTAAVIONES, Barcos.BUQUE, Barcos.DESCTRUCTOR, Barcos.FRAGATA, Barcos.FRAGATA};
+        Barcos[] flota = {
+                Barcos.PORTAAVIONES,
+                Barcos.ACORAZADO,
+                Barcos.CRUCERO,
+                Barcos.CRUCERO,
+                Barcos.SUBMARINO,
+                Barcos.DESTRUCTOR,
+                Barcos.DESTRUCTOR
+        };
         for (Barcos tipo : flota) {
             this.barcos.add(new Barco(tipo));
         }
