@@ -3,7 +3,7 @@ package com.javier.controlador;
 import java.util.Objects;
 
 
-public class TurnoManager {
+public final class TurnoManager {
 
     public enum Turno {
         CPU("Es el turno de la CPU"),
