@@ -27,10 +27,14 @@ public class TurnoManager {
         this.turnoActual = Turno.JUGADOR;
     }
 
+
     public Turno getTurnoActual() {
         return turnoActual;
     }
 
+    /**
+     * Cambia el turno entre la CPU y el jugador
+     */
     public void siguienteTurno() {
         Turno[] turnos = Turno.values();
         int siguiente = (turnoActual.ordinal() + 1) % turnos.length;

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 
 public class Tablero {
-    private Celda[][] celdas;
+    private final Celda[][] celdas;
 
     public Tablero() {
         celdas = new Celda[Config.FILAS_TABLERO][Config.COLUMNAS_TABLERO];
@@ -18,10 +18,9 @@ public class Tablero {
         return celdas;
     }
 
-    public void setCeldas(Celda[][] celdas) {
-        this.celdas = celdas;
-    }
-
+    /**
+     * Metodo que se llama al crear el tablero para llenar las celdas con celdaVacia directamente
+     */
     public void generarTableroVacio() {
         for (int i = 0; i < Config.FILAS_TABLERO; i++) {
             for (int j = 0; j < Config.COLUMNAS_TABLERO; j++) {
@@ -49,10 +48,22 @@ public class Tablero {
                 '}';
     }
 
+    /**
+     * Metodo para asignar barcos a celdas
+     * @param fila La fila en la que se encuentra el barco
+     * @param col La columna en la que se encuentra el barco
+     * @param celdaDeEsteBarco La CeldaBarco que va en la celda
+     */
     public void setCelda(int fila, int col, CeldaBarco celdaDeEsteBarco) {
         celdas[fila][col] = celdaDeEsteBarco;
     }
 
+    /**
+     * Metodo para devolver uan celda específica
+     * @param fila La fila en la que se encuentra la celda
+     * @param col La columna en la que se encuentra la celda
+     * @return La celda que hay en esa fila y columna
+     */
     public Celda getCelda(int fila, int col) {
         return celdas[fila][col];
     }

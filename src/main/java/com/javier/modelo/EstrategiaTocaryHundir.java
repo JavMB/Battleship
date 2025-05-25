@@ -48,9 +48,13 @@ public class EstrategiaTocaryHundir implements Estrategia{
         return disparo;
     }
 
+    /**
+     * Metodo que hace la CPU busque lugares cerca de donde ha tocado un barco para que no sea totalmente aleatorio
+     * @param inicio La coordenada que ha sido tocada
+     * @param celdas La matriz donde se van a buscar barcos
+     * @return Un ArrayList con las coordenadas adyacentes posibles como buen disparo
+     */
     private List<Coordenada> buscarExtensionesEnLinea(Coordenada inicio, Celda[][] celdas){
-        int filas = celdas.length;
-        int columnas = celdas[0].length;
         List<Coordenada> horizontal = new ArrayList<>();
         horizontal.addAll(buscarEnDireccion(inicio, -1, 0, celdas));
         horizontal.addAll(buscarEnDireccion(inicio, 1, 0, celdas));
@@ -64,6 +68,14 @@ public class EstrategiaTocaryHundir implements Estrategia{
         return vertical;
     }
 
+    /**
+     * Metodo que busca en diferentes direcciones a una coordenada dada que ya ha tocado
+     * @param inicio La coordenada tocada
+     * @param dx La dirección en la que se va a buscar en el eje x
+     * @param dy La dirección en la que se va a buscar en el eje y
+     * @param celdas La matriz donde se van a buscar los barcos
+     * @return Un ArrayList con las posibles coordenadas a disparar cerca de la celda ya disparada y tocada
+     */
     private List<Coordenada> buscarEnDireccion(Coordenada inicio, int dx, int dy, Celda[][] celdas){
         List<Coordenada> resultado = new ArrayList<>();
         int x = inicio.x() + dx;
