@@ -63,12 +63,16 @@ public class Cpu extends Player {
      * @throws RuntimeException si no se puede colocar un barco después de MAX_INTENTOS_COLOCACION intentos.
      */
     public void generarBarcos() {
+        tableroPropio.generarTableroVacio();
+
         for (Barco barcoActual : this.barcos) {
             boolean colocado = false;
             int intentos = 0;
+
             while (!colocado && intentos < Config.MAX_INTENTOS_COLOCACION) {
                 List<Coordenada> coordenadasBarco = encontrarPosicionParaBarco(barcoActual.getLongitud());
-                if (coordenadasBarco != null && !coordenadasBarco.isEmpty()) {
+
+                if (coordenadasBarco != null && coordenadasBarco.size() == barcoActual.getLongitud()) {
                     for (Coordenada coord : coordenadasBarco) {
                         CeldaBarco celdaDeEsteBarco = new CeldaBarco(coord, barcoActual);
                         this.tableroPropio.setCelda(coord.y(), coord.x(), celdaDeEsteBarco);
@@ -76,14 +80,20 @@ public class Cpu extends Player {
                     barcoActual.setColocado(true);
                     barcoActual.setCoordenadas(coordenadasBarco);
                     colocado = true;
+
+                    System.out.println(" Barco " + barcoActual.getTipo() + " colocado en: " + coordenadasBarco);
                 }
+
                 intentos++;
             }
+
             if (!colocado) {
+                System.err.println("No se pudo colocar: " + barcoActual.getTipo());
                 throw new RuntimeException("No se pudo colocar el barco: " + barcoActual.getTipo());
             }
         }
     }
+
 
     /**
      * Intenta encontrar una posición válida (lista de coordenadas) para un barco de una longitud dada.
@@ -92,22 +102,30 @@ public class Cpu extends Player {
      * @return Lista de coordenadas donde se puede colocar el barco, o null si no encuentra espacio.
      */
     private List<Coordenada> encontrarPosicionParaBarco(int longitud) {
-        boolean encontrada = false;
-        List<Coordenada> celdasBarco;
-        Direccion direccion = Direccion.values()[rnd.nextInt(Direccion.values().length)];
-        do {
+
+        int intentos = 0;
+
+        while (intentos < Config.MAX_INTENTOS_COLOCACION) {
+
             int columna = rnd.nextInt(tableroPropio.getCeldas()[0].length);
             int fila = rnd.nextInt(tableroPropio.getCeldas().length);
             Coordenada cord = new Coordenada(columna, fila);
-            celdasBarco = comprobarEjes(cord, direccion, longitud);
 
-            if (celdasBarco != null) {
-                encontrada = true;
+
+            Direccion[] direcciones = Direccion.values();
+            for (Direccion dir : direcciones) {
+                List<Coordenada> celdasBarco = comprobarEjes(cord, dir, longitud);
+                if (celdasBarco != null && celdasBarco.size() == longitud) {
+                    return celdasBarco;
+                }
             }
-        } while (!encontrada);
 
-        return celdasBarco;
+            intentos++;
+        }
+
+        return null;
     }
+
 
     /**
      * Comprueba si desde una coordenada inicial y en una dirección dada, cabe un barco de la longitud indicada.
@@ -122,33 +140,46 @@ public class Cpu extends Player {
         int x = cord.x();
         int y = cord.y();
 
+
+        if (x < 0 || y < 0 || x >= 10 || y >= 10) {
+            return null;
+        }
+
+
+        if (!(tableroPropio.getCeldas()[y][x] instanceof CeldaVacia)) {
+            return null;
+        }
+
         int dx = 0;
         int dy = 0;
-
         switch (direccion) {
             case N -> dy = -1;
             case S -> dy = 1;
             case E -> dx = 1;
             case O -> dx = -1;
         }
-        coordenadas.add(new Coordenada(x, y)); // la primera
 
-        for (int i = 1; i < longitud; i++) {
-            x += dx;
-            y += dy;
 
-            if (x >= 0 && y >= 0 && x < 10 && y < 10) { // Limites del tablero
-                if (tableroPropio.getCeldas()[y][x] instanceof CeldaVacia) {
-                    coordenadas.add(new Coordenada(x, y));
-                } else {
-                    return null;
-                }
-            } else {
+        for (int i = 0; i < longitud; i++) {
+            int currentX = x + (dx * i);
+            int currentY = y + (dy * i);
+
+
+            if (currentX < 0 || currentY < 0 || currentX >= 10 || currentY >= 10) {
                 return null;
             }
+
+
+            if (!(tableroPropio.getCeldas()[currentY][currentX] instanceof CeldaVacia)) {
+                return null;
+            }
+
+            coordenadas.add(new Coordenada(currentX, currentY));
         }
+
         return coordenadas;
     }
+
 
     /**
      * Realiza un disparo al tablero enemigo utilizando la estrategia seleccionada.
