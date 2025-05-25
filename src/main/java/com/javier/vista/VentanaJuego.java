@@ -18,6 +18,10 @@ public class VentanaJuego extends JFrame {
     private JButton[][] botonesJugador;
     private JButton[][] botonesEnemigo;
     private GestorJuego controlador;
+    private JLabel labelEstado;
+    private JPanel panelMensajes;
+    private boolean orientacionHorizontal = true; // true=horizontal, false=vertical
+    private JButton btnOrientacion;
 
     public VentanaJuego() {
         super("BattleShip - Partida");
@@ -40,15 +44,29 @@ public class VentanaJuego extends JFrame {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelTableros = new JPanel(new GridLayout(1, 2, 20, 0));
 
+        // Panel de mensajes
+        panelMensajes = new JPanel();
+        labelEstado = new JLabel("Coloca tus barcos");
+        labelEstado.setFont(new Font("Arial", Font.BOLD, 14));
+        panelMensajes.add(labelEstado);
+
+        // Botón para cambiar orientación
+        btnOrientacion = new JButton("Orientación: Horizontal");
+        btnOrientacion.addActionListener(e -> alternarOrientacion());
+        panelMensajes.add(btnOrientacion);
+
         panelJugador = crearPanelTablero("Tu flota");
         panelEnemigo = crearPanelTablero("Enemigo");
 
-        botonesJugador = crearBotonera(panelJugador, false, true);
+        botonesJugador = crearBotonera(panelJugador, true, true);
         botonesEnemigo = crearBotonera(panelEnemigo, false, false);
 
         panelTableros.add(panelJugador);
         panelTableros.add(panelEnemigo);
+
         panelPrincipal.add(panelTableros, BorderLayout.CENTER);
+        panelPrincipal.add(panelMensajes, BorderLayout.SOUTH);
+
         this.add(panelPrincipal);
     }
 
@@ -73,7 +91,6 @@ public class VentanaJuego extends JFrame {
                 boton.setBackground(COLOR_AGUA);
                 boton.setPreferredSize(new Dimension(30, 30));
                 boton.setEnabled(habilitar);
-
                 final int f = fila;
                 final int c = col;
                 if (esJugador) {
@@ -89,7 +106,6 @@ public class VentanaJuego extends JFrame {
                         }
                     });
                 }
-
                 botones[fila][col] = boton;
                 panel.add(boton);
             }
@@ -104,7 +120,9 @@ public class VentanaJuego extends JFrame {
         for (int fila = 0; fila < TAMANO_TABLERO; fila++) {
             for (int col = 0; col < TAMANO_TABLERO; col++) {
                 Estado estado = tableroEnemigo.getCelda(fila, col).getEstado();
-                botonesEnemigo[fila][col].setBackground(colorPorEstado(estado));
+                // para ocultar los barcos enemigos, solo se muestra el estado de agua, tocado o hundido
+                Color color = (estado == Estado.BARCO ? COLOR_AGUA : colorPorEstado(estado));
+                botonesEnemigo[fila][col].setBackground(color);
             }
         }
     }
@@ -117,8 +135,15 @@ public class VentanaJuego extends JFrame {
             for (int col = 0; col < TAMANO_TABLERO; col++) {
                 Estado estado = tableroJugador.getCelda(fila, col).getEstado();
                 botonesJugador[fila][col].setBackground(colorPorEstado(estado));
+                if (estado == Estado.BARCO) {
+                    botonesJugador[fila][col].setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+                } else {
+                    botonesJugador[fila][col].setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+                }
             }
         }
+        panelJugador.revalidate();
+        panelJugador.repaint();
     }
 
     /**
@@ -162,8 +187,50 @@ public class VentanaJuego extends JFrame {
         return switch (estado) {
             case TOCADO -> Color.ORANGE;
             case HUNDIDO -> Color.RED;
-            case BARCO -> Color.GRAY;
+            case BARCO -> new Color(60, 60, 60);
             default -> COLOR_AGUA;
         };
+    }
+
+    /**
+     * Muestra un mensaje en la interfaz.
+     */
+    public void mostrarMensaje(String mensaje) {
+        labelEstado.setText(mensaje);
+    }
+
+    /**
+     * Muestra un mensaje de error.
+     */
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Muestra un mensaje de victoria al finalizar la partida.
+     */
+    public void mostrarVictoria(String mensaje) {
+        labelEstado.setText(mensaje);
+        labelEstado.setForeground(Color.GREEN.darker());
+        JOptionPane.showMessageDialog(this, mensaje, "¡Victoria!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Muestra un mensaje de derrota al finalizar la partida.
+     */
+    public void mostrarDerrota(String mensaje) {
+        labelEstado.setText(mensaje);
+        labelEstado.setForeground(Color.RED);
+        JOptionPane.showMessageDialog(this, mensaje, "Derrota", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void alternarOrientacion() {
+        orientacionHorizontal = !orientacionHorizontal;
+        btnOrientacion.setText("Orientación: " + (orientacionHorizontal ? "Horizontal" : "Vertical"));
+        mostrarMensaje("Coloca tu barco en orientación " + (orientacionHorizontal ? "horizontal" : "vertical"));
+    }
+
+    public boolean isOrientacionHorizontal() {
+        return orientacionHorizontal;
     }
 }

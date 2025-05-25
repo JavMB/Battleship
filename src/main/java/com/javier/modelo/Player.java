@@ -12,43 +12,23 @@ public class Player implements Estrategia {
 
     public Player() {
         this.disparadas = new HashSet<>();
-        this.tableroPropio = new Tablero(); //creado ya de vacias constructor de Tablero
+        this.tableroPropio = new Tablero();
         this.barcos = new ArrayList<>();
-        instanciarBarcos(); // llamada para crear la flota del jugador
     }
 
-    private void instanciarBarcos() {
-        for (Barcos tipoBarco : Barcos.values()) {
-            for (int i = 0; i < tipoBarco.getCantidad(); i++) {
-                barcos.add(new Barco(tipoBarco));
+    /**
+     * Verifica si todos los barcos del jugador están hundidos.
+     *
+     * @return true si todos los barcos están hundidos, false en caso contrario
+     */
+    public boolean todosLosBarcosHundidos() {
+        for (Barco barco : barcos) {
+            if (barco.isColocado() && !barco.isHundido()) {
+                return false;
             }
         }
-    }
-
-    // solo valida cada barco
-    private boolean validarBarco(List<Coordenada> coordenadas) {
-
         return true;
-
-
-
     }
-
-    public void nuevoBarco(List<Coordenada> barco) {
-        
-        if (validarBarco(barco)){
-            
-        }
-
-        // mireya esto lo llamo ya validado pero necesito que extraigas logica
-        // al tablero algun metodo  que que pueda hacer tipo tableroPropio.asignar()
-        // lo que me refiero es que no el jugador a mano coloque estas cordenadas como nuevas CeldaBarco
-        // en el tablero si no que el tablero tenga metodos utiles, que me ahorren trabajo
-        // pero piensa que al final es solo un tablero su proposito es contener informacion y celdas
-        // saber darte la que le pides y saber colocar las que le pasas , con un minimo de validaciones de proteccion.
-
-    }
-
 
     @Override
     public Coordenada disparar(Tablero enemigo, Set<Coordenada> yaDisparadas) {
@@ -67,3 +47,4 @@ public class Player implements Estrategia {
         return disparadas;
     }
 }
+

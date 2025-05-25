@@ -28,4 +28,8 @@ public class CeldaBarco extends Celda {
         }
         return Estado.YA_DISPARADO;
     }
+
+    public Barco getBarco() {
+        return barco;
+    }
 }

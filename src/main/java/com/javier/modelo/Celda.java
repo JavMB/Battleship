@@ -21,7 +21,7 @@ public abstract class Celda {
         return estado;
     }
 
-    protected void setEstado(Estado estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
 
     }

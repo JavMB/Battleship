@@ -71,6 +71,7 @@ public class VentanaInicio extends JFrame {
     private void iniciarJuego() {
         this.setVisible(false);
         VentanaJuego ventanaJuego = new VentanaJuego();
+        new GestorJuego(ventanaJuego);
         ventanaJuego.setVisible(true);
         this.dispose();
     }

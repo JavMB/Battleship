@@ -4,14 +4,12 @@ import java.util.Arrays;
 import java.util.Objects;
 
 
-
-
-public class Tablero{
-    private static final int TAMANYO_TABLERO = 10;
+public class Tablero {
+    public static final int TAMANYO_TABLERO = 10;
 
     private Celda[][] celdas;
 
-    public Tablero(){
+    public Tablero() {
         celdas = new Celda[TAMANYO_TABLERO][TAMANYO_TABLERO];
         generarTableroVacio();
     }
@@ -24,7 +22,7 @@ public class Tablero{
         this.celdas = celdas;
     }
 
-    private void generarTableroVacio() {
+    public void generarTableroVacio() {
         for (int i = 0; i < TAMANYO_TABLERO; i++) {
             for (int j = 0; j < TAMANYO_TABLERO; j++) {
                 celdas[i][j] = new CeldaVacia(new Coordenada(i, j));
@@ -51,8 +49,8 @@ public class Tablero{
                 '}';
     }
 
-    public void setCelda(int y, int x, CeldaBarco celdaDeEsteBarco) {
-        celdas[x][y] = celdaDeEsteBarco;
+    public void setCelda(int fila, int col, CeldaBarco celdaDeEsteBarco) {
+        celdas[fila][col] = celdaDeEsteBarco;
     }
 
     public Celda getCelda(int fila, int col) {

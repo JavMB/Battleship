@@ -3,6 +3,8 @@ package com.javier.controlador;
 import com.javier.modelo.*;
 import com.javier.vista.VentanaJuego;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestorJuego {
     private Player jugador;
@@ -10,10 +12,17 @@ public class GestorJuego {
     private VentanaJuego vista;
     private Modo modoActual = Modo.COLOCACION;
     private TurnoManager turnos = new TurnoManager();
-    private enum Modo { COLOCACION, DISPARO, FIN }
 
+    private enum Modo {COLOCACION, DISPARO, FIN}
 
-
+    private static final Barcos[] FLOTA_A_COLOCAR = {
+            Barcos.PORTAAVIONES,
+            Barcos.BUQUE,
+            Barcos.DESCTRUCTOR,
+            Barcos.FRAGATA,
+            Barcos.FRAGATA
+    };
+    private int indiceBarcoAPlantar = 0;
 
     public GestorJuego(VentanaJuego vista) {
         this.vista = vista;
@@ -24,45 +33,204 @@ public class GestorJuego {
         this.vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
         this.vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
 
+        iniciarFaseColocacion();
+    }
+
+    private void iniciarFaseColocacion() {
+        modoActual = Modo.COLOCACION;
+        indiceBarcoAPlantar = 0;
+        jugador.getBarcos().clear();
+        jugador.getTableroPropio().generarTableroVacio();
+        vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
+
         vista.setModoColocacion(true);
         vista.setModoDisparo(false);
+
+        if (indiceBarcoAPlantar < FLOTA_A_COLOCAR.length) {
+            Barcos tipoPrimerBarco = FLOTA_A_COLOCAR[indiceBarcoAPlantar];
+            vista.mostrarMensaje("Coloca tu " + tipoPrimerBarco.name() + " (" + tipoPrimerBarco.getLongitud() + " celdas)");
+        } else {
+            vista.mostrarError("Error: No hay barcos definidos para colocar.");
+            try {
+                throw new ErrorCriticoException("No hay barcos definidos para colocar.");
+            } catch (ErrorCriticoException e) {
+                modoActual = Modo.FIN;
+                vista.bloquearTableros();
+                vista.mostrarError(e.getMessage());
+            }
+
+        }
     }
 
-    //  cuando el usuario hace click en el tablero del jugador para colocar barcos
     public void manejarClickJugador(int fila, int col) {
-        //TODO en modo colocar hare
+        if (modoActual != Modo.COLOCACION) {
+            return;
+        }
 
+        if (indiceBarcoAPlantar >= FLOTA_A_COLOCAR.length) {
+            vista.mostrarError("Ya has colocado todos tus barcos. Pasando a fase de disparo.");
+            finalizarColocacionEIniciarDisparo();
+            return;
+        }
 
-        comprobarPartida();
+        Barcos tipoBarcoActual = FLOTA_A_COLOCAR[indiceBarcoAPlantar];
+        Barco barcoIntentado = new Barco(tipoBarcoActual);
+        boolean esHorizontal = vista.isOrientacionHorizontal();
+        int longitud = barcoIntentado.getLongitud();
 
+        if (esHorizontal) {
+            if (col + longitud > Tablero.TAMANYO_TABLERO) {
+                vista.mostrarError("El " + tipoBarcoActual.name() + " se sale del tablero (horizontal).");
+                return;
+            }
+        } else {
+            if (fila + longitud > Tablero.TAMANYO_TABLERO) {
+                vista.mostrarError("El " + tipoBarcoActual.name() + " se sale del tablero (vertical).");
+                return;
+            }
+        }
+
+        List<Coordenada> coordenadasPotenciales = new ArrayList<>();
+        for (int i = 0; i < longitud; i++) {
+            int cFila = esHorizontal ? fila : fila + i;
+            int cCol = esHorizontal ? col + i : col;
+
+            if (cFila < 0 || cFila >= Tablero.TAMANYO_TABLERO || cCol < 0 || cCol >= Tablero.TAMANYO_TABLERO) {
+                vista.mostrarError("Coordenada fuera de tablero al verificar solapamiento.");
+                return;
+            }
+
+            if (jugador.getTableroPropio().getCelda(cFila, cCol) instanceof CeldaBarco) {
+                vista.mostrarError("No puedes solapar el " + tipoBarcoActual.name() + " con otro barco.");
+                return;
+            }
+            coordenadasPotenciales.add(new Coordenada(cCol, cFila));
+        }
+
+        for (Coordenada coord : coordenadasPotenciales) {
+            CeldaBarco celdaDeEsteBarco = new CeldaBarco(coord, barcoIntentado);
+            jugador.getTableroPropio().setCelda(coord.y(), coord.x(), celdaDeEsteBarco);
+        }
+        barcoIntentado.setColocado(true);
+        barcoIntentado.setCoordenadas(coordenadasPotenciales);
+        jugador.getBarcos().add(barcoIntentado);
+
+        vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
+
+        indiceBarcoAPlantar++;
+        if (indiceBarcoAPlantar < FLOTA_A_COLOCAR.length) {
+            Barcos siguienteTipo = FLOTA_A_COLOCAR[indiceBarcoAPlantar];
+            vista.mostrarMensaje("Coloca tu " + siguienteTipo.name() + " (" + siguienteTipo.getLongitud() + " celdas)");
+        } else {
+            finalizarColocacionEIniciarDisparo();
+        }
     }
 
-    // cuando el usuario hace click en el tablero enemigo para disparar
-    public void manejarClickEnemigo(int fila, int col) {
+    private void finalizarColocacionEIniciarDisparo() {
+        vista.mostrarMensaje("Todos tus barcos colocados. La CPU está colocando los suyos...");
+        cpu.generarBarcos();
 
+        modoActual = Modo.DISPARO;
+        vista.setModoColocacion(false);
+        vista.setModoDisparo(true);
+
+        vista.mostrarMensaje("¡Comienza la batalla! Dispara contra el enemigo.");
+    }
+
+
+    public void manejarClickEnemigo(int fila, int col) {
+        if (modoActual != Modo.DISPARO) {
+            return;
+        }
+
+        try {
+            Coordenada coordDisparo = new Coordenada(col, fila);
+            if (jugador.getDisparadas().contains(coordDisparo)) {
+                vista.mostrarError("Ya has disparado en (" + col + "," + fila + ")");
+                return;
+            }
+            jugador.getDisparadas().add(coordDisparo);
+
+            Celda celdaObjetivoCPU = cpu.getTableroPropio().getCelda(fila, col);
+            Estado resultado = celdaObjetivoCPU.procesarDisparo();
+
+            vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
+
+            if (resultado == Estado.AGUA) {
+                vista.mostrarMensaje("¡Agua! Disparaste en (" + col + "," + fila + ")");
+            } else if (resultado == Estado.TOCADO) {
+                vista.mostrarMensaje("¡Tocado! Impacto en (" + col + "," + fila + ")");
+            } else if (resultado == Estado.HUNDIDO) {
+                vista.mostrarMensaje("¡HUNDIDO! Has hundido un barco enemigo en (" + col + "," + fila + ")");
+                CeldaBarco celdaBarco = (CeldaBarco) celdaObjetivoCPU;
+                for (Coordenada c : celdaBarco.getBarco().getCoordenadas()) {
+                    cpu.getTableroPropio().getCelda(c.y(), c.x()).setEstado(Estado.HUNDIDO);
+                }
+                vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
+            }
+
+            if (comprobarFinDeJuego()) {
+                return;
+            }
+
+            realizarTurnoCpu();
+
+        } catch (Exception e) {
+            vista.mostrarError("Error al procesar disparo: " + e.getMessage());
+        }
     }
 
     private void realizarTurnoCpu() {
-        // Ddsparo de la CPU
-        turnos.siguienteTurno();
-        comprobarPartida();
+        if (modoActual != Modo.DISPARO) return;
+
+        vista.mostrarMensaje("Turno de la CPU...");
+
+        try {
+            Coordenada coordDisparoCpu = cpu.disparar(jugador.getTableroPropio(), new EstrategiaAleatoria());
+
+            Celda celdaObjetivoJugador = jugador.getTableroPropio().getCelda(coordDisparoCpu.y(), coordDisparoCpu.x());
+            Estado resultadoCpu = celdaObjetivoJugador.procesarDisparo();
+
+            vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
+
+            String mensajeCpu = "CPU disparó en (" + coordDisparoCpu.x() + "," + coordDisparoCpu.y() + "): ";
+            if (resultadoCpu == Estado.AGUA) {
+                mensajeCpu += "¡Agua!";
+            } else if (resultadoCpu == Estado.TOCADO) {
+                mensajeCpu += "¡Tocado!";
+            } else if (resultadoCpu == Estado.HUNDIDO) {
+                mensajeCpu += "¡HUNDIDO! Tu barco ha sido hundido.";
+            }
+            vista.mostrarMensaje(mensajeCpu);
+
+            comprobarFinDeJuego();
+
+        } catch (Exception e) {
+            vista.mostrarError("Error en el turno de la CPU: " + e.getMessage());
+        }
     }
 
-    private void comprobarPartida() {
 
+    private boolean comprobarFinDeJuego() {
+        if (jugador.todosLosBarcosHundidos()) {
+            finalizarPartida(false);
+            return true;
+        } else if (cpu.todosLosBarcosHundidos()) {
+            finalizarPartida(true);
+            return true;
+        }
+        return false; // nadie ha ganado todavía
     }
 
 
+    private void finalizarPartida(boolean jugadorGano) {
+        modoActual = Modo.FIN;
+        vista.bloquearTableros();
+        if (jugadorGano) {
+            vista.mostrarVictoria("¡FELICIDADES! ¡Has hundido toda la flota enemiga!");
+        } else {
+            vista.mostrarDerrota("¡Has perdido! Toda tu flota ha sido hundida.");
+        }
 
-
-
-
-
-
-
-
-
-    public void manejarInputTexto(Coordenada cord){}
-    //Josep esto habra un input text y un boton con un listener asociado que al darla activa este evento, que basicamente
-    //es lo mismo que manejarclickjugador , depende del estado si es inicio o disparo pues esa cordenada intentara poner un barco, o disparar a un barco enemigo
+    }
 }

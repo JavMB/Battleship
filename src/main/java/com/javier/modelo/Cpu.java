@@ -38,6 +38,10 @@ public class Cpu extends Player {
     public Cpu() {
         this.rnd = new Random();
         this.disparadas = new HashSet<>();
+        Barcos[] flota = {Barcos.PORTAAVIONES, Barcos.BUQUE, Barcos.DESCTRUCTOR, Barcos.FRAGATA, Barcos.FRAGATA};
+        for (Barcos tipo : flota) {
+            this.barcos.add(new Barco(tipo));
+        }
         generarBarcos();
     }
 
@@ -58,6 +62,8 @@ public class Cpu extends Player {
                         CeldaBarco celdaDeEsteBarco = new CeldaBarco(coord, barcoActual);
                         this.tableroPropio.setCelda(coord.y(), coord.x(), celdaDeEsteBarco);
                     }
+                    barcoActual.setColocado(true);
+                    barcoActual.setCoordenadas(coordenadasBarco);
                     colocado = true;
                 }
                 intentos++;

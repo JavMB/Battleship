@@ -1,7 +1,7 @@
 package com.javier.modelo;
 
 public enum Barcos {
-    PORTAAVIONES(1, 5), BUQUE(2, 4), DESCTRUCTOR(3, 3), FRAGATA(2, 2), SUBMARINO(4, 1);
+    PORTAAVIONES(1, 5), BUQUE(2, 4), DESCTRUCTOR(3, 3), FRAGATA(2, 2);
     private final int cantidad;
     private final int longitud;
 
