@@ -1,6 +1,7 @@
 package com.javier.controlador;
 
 import com.javier.modelo.*;
+import com.javier.vista.Config;
 import com.javier.vista.VentanaJuego;
 
 import java.util.ArrayList;
@@ -85,12 +86,12 @@ public class GestorJuego {
         int longitud = barcoIntentado.getLongitud();
 
         if (esHorizontal) {
-            if (col + longitud > Tablero.TAMANYO_TABLERO) {
+            if (col + longitud > Config.FILAS_TABLERO) {
                 vista.mostrarError("El " + tipoBarcoActual.name() + " se sale del tablero (horizontal).");
                 return;
             }
         } else {
-            if (fila + longitud > Tablero.TAMANYO_TABLERO) {
+            if (fila + longitud > Config.COLUMNAS_TABLERO) {
                 vista.mostrarError("El " + tipoBarcoActual.name() + " se sale del tablero (vertical).");
                 return;
             }
@@ -101,7 +102,7 @@ public class GestorJuego {
             int cFila = esHorizontal ? fila : fila + i;
             int cCol = esHorizontal ? col + i : col;
 
-            if (cFila < 0 || cFila >= Tablero.TAMANYO_TABLERO || cCol < 0 || cCol >= Tablero.TAMANYO_TABLERO) {
+            if (cFila < 0 || cFila >= Config.FILAS_TABLERO || cCol < 0 || cCol >= Config.COLUMNAS_TABLERO) {
                 vista.mostrarError("Coordenada fuera de tablero al verificar solapamiento.");
                 return;
             }
