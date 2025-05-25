@@ -21,13 +21,19 @@ public class Cpu extends Player {
         N, S, E, O
     }
 
-    /** Generador de números aleatorios para la CPU */
+    /**
+     * Generador de números aleatorios para la CPU
+     */
     private final Random rnd;
 
-    /** Estrategia actual utilizada para disparar */
+    /**
+     * Estrategia actual utilizada para disparar
+     */
     private Estrategia strategy;
 
-    /** Número máximo de intentos para colocar un barco */
+    /**
+     * Número máximo de intentos para colocar un barco
+     */
     private static final int MAX_INTENTOS_COLOCACION = 100;
 
     /**
@@ -101,9 +107,9 @@ public class Cpu extends Player {
     /**
      * Comprueba si desde una coordenada inicial y en una dirección dada, cabe un barco de la longitud indicada.
      *
-     * @param cord Coordenada inicial.
+     * @param cord      Coordenada inicial.
      * @param direccion Dirección en la que se quiere colocar el barco.
-     * @param longitud Longitud del barco.
+     * @param longitud  Longitud del barco.
      * @return Lista de coordenadas válidas para el barco, o null si no cabe.
      */
     private List<Coordenada> comprobarEjes(Coordenada cord, Direccion direccion, int longitud) {
@@ -142,7 +148,7 @@ public class Cpu extends Player {
     /**
      * Realiza un disparo al tablero enemigo utilizando la estrategia seleccionada.
      *
-     * @param enemigo Tablero enemigo donde disparar.
+     * @param enemigo    Tablero enemigo donde disparar.
      * @param estrategia Estrategia a seguir para disparar.
      * @return Coordenada disparada.
      */

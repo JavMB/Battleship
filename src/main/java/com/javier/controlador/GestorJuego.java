@@ -10,8 +10,10 @@ public class GestorJuego {
     private Player jugador;
     private Cpu cpu;
     private VentanaJuego vista;
-    private Modo modoActual = Modo.COLOCACION;
-    private TurnoManager turnos = new TurnoManager();
+    private Modo modoActual;
+    private TurnoManager turnos;
+    private final Estrategia estrategiaAleatoria;
+    private final Estrategia estrategiaCaza;
 
     private enum Modo {COLOCACION, DISPARO, FIN}
 
@@ -29,6 +31,10 @@ public class GestorJuego {
         this.jugador = new Player();
         this.cpu = new Cpu();
         this.vista.setControlador(this);
+        this.modoActual = Modo.COLOCACION;
+        this.turnos = new TurnoManager();
+        this.estrategiaAleatoria = new EstrategiaAleatoria();
+        this.estrategiaCaza = new EstrategiaTocaryHundir();
 
         this.vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
         this.vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
@@ -129,6 +135,7 @@ public class GestorJuego {
     private void finalizarColocacionEIniciarDisparo() {
         vista.mostrarMensaje("Todos tus barcos colocados. La CPU está colocando los suyos...");
         cpu.generarBarcos();
+        cpu.setStrategy(estrategiaAleatoria);
 
         modoActual = Modo.DISPARO;
         vista.setModoColocacion(false);
@@ -186,7 +193,7 @@ public class GestorJuego {
         vista.mostrarMensaje("Turno de la CPU...");
 
         try {
-            Coordenada coordDisparoCpu = cpu.disparar(jugador.getTableroPropio(), new EstrategiaAleatoria());
+            Coordenada coordDisparoCpu = cpu.disparar(jugador.getTableroPropio(), cpu.getStrategy());
 
             Celda celdaObjetivoJugador = jugador.getTableroPropio().getCelda(coordDisparoCpu.y(), coordDisparoCpu.x());
             Estado resultadoCpu = celdaObjetivoJugador.procesarDisparo();
@@ -198,8 +205,10 @@ public class GestorJuego {
                 mensajeCpu += "¡Agua!";
             } else if (resultadoCpu == Estado.TOCADO) {
                 mensajeCpu += "¡Tocado!";
+                cpu.setStrategy(estrategiaCaza);
             } else if (resultadoCpu == Estado.HUNDIDO) {
                 mensajeCpu += "¡HUNDIDO! Tu barco ha sido hundido.";
+                cpu.setStrategy(estrategiaAleatoria);
             }
             vista.mostrarMensaje(mensajeCpu);
 
