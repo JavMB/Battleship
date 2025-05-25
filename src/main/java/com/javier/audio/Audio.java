@@ -11,10 +11,10 @@ class Audio {
      * Crea una instancia de Audio cargando un archivo .wav desde el classpath.
      *
      * @param audioFile Ruta del archivo dentro de src/main/resources (por ejemplo: "assets/sound.wav").
-     * @throws NullPointerException           si el nombre del archivo es null.
-     * @throws IllegalArgumentException       si la extensión no es .wav o el archivo no se encuentra o no es soportado.
-     * @throws IllegalStateException          si hay un error de lectura del archivo.
-     * @throws RuntimeException               si el sistema de sonido no está disponible.
+     * @throws NullPointerException     si el nombre del archivo es null.
+     * @throws IllegalArgumentException si la extensión no es .wav o el archivo no se encuentra o no es soportado.
+     * @throws IllegalStateException    si hay un error de lectura del archivo.
+     * @throws RuntimeException         si el sistema de sonido no está disponible.
      */
     Audio(String audioFile) {
         if (audioFile == null) {

@@ -1,5 +1,6 @@
 package com.javier.vista;
 
+import com.javier.audio.ReproductorMusica;
 import com.javier.controlador.GestorJuego;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class VentanaInicio extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         initComponents();
+        ReproductorMusica.getInstancia().musicaMenu();
         // no llamamos a setVisible aquí, lo haremos desde el Main
     }
 
@@ -69,9 +71,11 @@ public class VentanaInicio extends JFrame {
     }
 
     private void iniciarJuego() {
+        ReproductorMusica.getInstancia().stop();
         this.setVisible(false);
         VentanaJuego ventanaJuego = new VentanaJuego();
         new GestorJuego(ventanaJuego);
+        ReproductorMusica.getInstancia().musicaBattle();
         ventanaJuego.setVisible(true);
         this.dispose();
     }

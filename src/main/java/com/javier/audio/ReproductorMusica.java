@@ -2,9 +2,21 @@ package com.javier.audio;
 
 
 public class ReproductorMusica extends Reproductor {
-    public ReproductorMusica() {
-        super(new Audio("musica/Menu.wav"),new Audio("musica/Battle.wav"));
+
+    private static ReproductorMusica instancia;
+
+    private ReproductorMusica() {
+        super(new Audio("musica/Menu.wav"), new Audio("musica/Battle.wav"));
     }
+
+    public static ReproductorMusica getInstancia() {
+        if (instancia == null) {
+            instancia = new ReproductorMusica();
+        }
+        return instancia;
+    }
+
+
     @Override
     public void play() {
         super.play(true);
