@@ -1,8 +1,16 @@
 package com.javier.audio;
 
 public class ReproductorEfectos extends Reproductor {
-    public ReproductorEfectos() {
+    private static ReproductorEfectos instance;
+    private ReproductorEfectos() {
         super(new Audio("efectos/tocar_agua.wav"), new Audio("efectos/tocado.wav"), new Audio("efectos/undir.wav"));
+    }
+
+    public static ReproductorEfectos getInstance() {
+        if(instance == null) {
+            instance = new ReproductorEfectos();
+        }
+        return instance;
     }
 
     @Override
