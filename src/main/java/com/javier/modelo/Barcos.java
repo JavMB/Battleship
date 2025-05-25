@@ -1,17 +1,16 @@
 package com.javier.modelo;
 
 public enum Barcos {
-    PORTAAVIONES(1, 5), BUQUE(2, 4), DESCTRUCTOR(3, 3), FRAGATA(2, 2);
-    private final int cantidad;
+    PORTAAVIONES(5),
+    ACORAZADO(4),
+    CRUCERO(3),
+    SUBMARINO(3),
+    DESTRUCTOR(2);
+
     private final int longitud;
 
-    Barcos(int cantidad, int longitud) {
-        this.cantidad = cantidad;
+    Barcos(int longitud) {
         this.longitud = longitud;
-    }
-
-    public int getCantidad() {
-        return cantidad;
     }
 
     public int getLongitud() {
