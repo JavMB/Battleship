@@ -1,16 +1,25 @@
 package com.javier.modelo;
-/**
- * Clase base para representar una celda del tablero.
- * Puede contener un barco, estar vacía, o haber sido disparada.
- *
- * Tareas:
- * - Crear clase abstracta (o normal) con métodos comunes como:
- *   `esTocado()`, `mostrar()`, `tieneBarco()`, etc.
- * - Será la base para las subclases `CeldaBarco`, `CeldaVacia`, etc.
- *
- * Autor: Josep
- */
 
+public abstract class Celda {
+    protected Coordenada coordenada;
+    protected boolean tocada;
 
-public class Celda {
+    protected Celda(Coordenada coordenada) {
+        this.coordenada = coordenada;
+        this.tocada = false;
+    }
+
+    public Coordenada getCoordenada() {
+        return coordenada;
+    }
+
+    public boolean isTocada() {
+        return tocada;
+    }
+
+    public void setTocada(boolean tocada) {
+        this.tocada = tocada;
+    }
+
+    public abstract boolean procesarDisparo();
 }

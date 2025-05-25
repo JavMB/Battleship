@@ -1,15 +1,24 @@
 package com.javier.modelo;
-/**
- * Subclase de Celda que representa una celda donde hay un barco.
- *
- * Tareas:
- * - Heredar de Celda.
- * - Guardar si ya fue disparada o no.
- * - Mostrar símbolo o imagen de tocado o no tocado.
- *
- * Autor: Josep
- */
 
+public class CeldaBarco extends Celda {
+    private final Barco barco;
 
-public class CeldaBarco {
+    public CeldaBarco(Coordenada coordenada, Barco barco) {
+        super(coordenada);
+        this.barco = barco;
+    }
+
+    @Override
+    public boolean procesarDisparo() {
+        if (!tocada) {
+            tocada = true;
+            barco.registrarImpacto();
+            return true;
+        }
+        return false;
+    }
+
+    public Barco getBarco() {
+        return barco;
+    }
 }
