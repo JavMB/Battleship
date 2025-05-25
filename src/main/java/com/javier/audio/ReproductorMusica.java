@@ -9,6 +9,11 @@ public class ReproductorMusica extends Reproductor {
         super(new Audio("musica/Menu.wav"), new Audio("musica/Battle.wav"));
     }
 
+    /**
+     * Patrón Singleton para obtener una única instancia del reproductor de música.
+     *
+     * @return instancia única de ReproductorMusica
+     */
     public static ReproductorMusica getInstancia() {
         if (instancia == null) {
             instancia = new ReproductorMusica();

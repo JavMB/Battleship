@@ -24,10 +24,18 @@ public class Barco {
         return tipo;
     }
 
+    /**
+     * Registra un impacto recibido por el barco
+     * Aumenta el contador de impactos recibidos
+     */
     public void registrarImpacto() {
         impactosRecibidos++;
     }
 
+    /**
+     *
+     * @return devuelve si esta hundido o no
+     */
     public boolean isHundido() {
         return impactosRecibidos >= getLongitud();
     }

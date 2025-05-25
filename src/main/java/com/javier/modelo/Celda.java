@@ -15,6 +15,10 @@ public abstract class Celda {
         return coordenada;
     }
 
+    /**
+     * Procesa el disparo en la celda.
+     * @return El estado de la celda después de procesar el disparo.
+     */
     public abstract Estado procesarDisparo();
 
     public Estado getEstado() {

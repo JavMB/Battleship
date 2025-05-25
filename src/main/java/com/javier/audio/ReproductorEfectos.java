@@ -7,6 +7,11 @@ public class ReproductorEfectos extends Reproductor {
         super(new Audio("efectos/tocar_agua.wav"), new Audio("efectos/tocado.wav"), new Audio("efectos/hundir.wav"), new Audio("efectos/wine.wav"), new Audio("efectos/lose.wav"));
     }
 
+    /**
+     * Patrón Singleton para asegurar que solo haya una instancia de ReproductorEfectos
+     *
+     * @return instancia única de ReproductorEfectos
+     */
     public static ReproductorEfectos getInstance() {
         if (instance == null) {
             instance = new ReproductorEfectos();
