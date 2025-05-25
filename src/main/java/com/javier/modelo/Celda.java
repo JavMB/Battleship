@@ -13,6 +13,10 @@ public abstract class Celda {
         return coordenada;
     }
 
+    /**
+     * Indica si la celda ha sido tocada por un disparo.
+     * @return true si la celda ha sido tocada, false en caso contrario.
+     */
     public boolean isTocada() {
         return tocada;
     }
@@ -21,5 +25,12 @@ public abstract class Celda {
         this.tocada = tocada;
     }
 
+    /**
+     * Procesa un disparo en la celda.
+     * Debe ser implementado por las subclases para definir el comportamiento específico
+     * al recibir un disparo.
+     *
+     * @return true si el disparo ha impactado, false si ha fallado.
+     */
     public abstract boolean procesarDisparo();
 }
