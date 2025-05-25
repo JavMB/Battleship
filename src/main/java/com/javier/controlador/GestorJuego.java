@@ -20,12 +20,14 @@ public class GestorJuego {
 
     private enum Modo {COLOCACION, DISPARO, FIN}
 
-    private static final Barcos[] FLOTA_A_COLOCAR = {
+   private final static Barcos[] FLOTA_A_COLOCAR = {
             Barcos.PORTAAVIONES,
-            Barcos.BUQUE,
-            Barcos.DESCTRUCTOR,
-            Barcos.FRAGATA,
-            Barcos.FRAGATA
+            Barcos.ACORAZADO,
+            Barcos.CRUCERO,
+            Barcos.CRUCERO,
+            Barcos.SUBMARINO,
+            Barcos.DESTRUCTOR,
+            Barcos.DESTRUCTOR
     };
 
     private int indiceBarcoAPlantar = 0;
