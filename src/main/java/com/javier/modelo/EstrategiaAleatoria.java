@@ -18,8 +18,8 @@ public class EstrategiaAleatoria implements Estrategia {
 
         Coordenada disparo;
         do{
-            int x = random.nextInt(filas);
-            int y = random.nextInt(columnas);
+            int x = random.nextInt(columnas);
+            int y = random.nextInt(filas);
             disparo = new Coordenada(x, y);
         }while (yaDisparadas.contains(disparo));
 
