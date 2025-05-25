@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 
 class Audio {
-    private Clip clip;
+    private final Clip clip;
 
     /**
      * Crea una instancia de Audio cargando un archivo .wav desde el classpath.
