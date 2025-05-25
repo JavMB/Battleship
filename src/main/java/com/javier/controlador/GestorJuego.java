@@ -27,6 +27,7 @@ public class GestorJuego {
             Barcos.FRAGATA,
             Barcos.FRAGATA
     };
+
     private int indiceBarcoAPlantar = 0;
 
     public GestorJuego(VentanaJuego vista) {
@@ -38,10 +39,8 @@ public class GestorJuego {
         this.turnos = new TurnoManager();
         this.estrategiaAleatoria = new EstrategiaAleatoria();
         this.estrategiaCaza = new EstrategiaTocaryHundir();
-
         this.vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
         this.vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
-
         iniciarFaseColocacion();
     }
 
@@ -51,7 +50,6 @@ public class GestorJuego {
         jugador.getBarcos().clear();
         jugador.getTableroPropio().generarTableroVacio();
         vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
-
         vista.setModoColocacion(true);
         vista.setModoDisparo(false);
 
@@ -67,7 +65,6 @@ public class GestorJuego {
                 vista.bloquearTableros();
                 vista.mostrarError(e.getMessage());
             }
-
         }
     }
 
@@ -87,18 +84,20 @@ public class GestorJuego {
         boolean esHorizontal = vista.isOrientacionHorizontal();
         int longitud = barcoIntentado.getLongitud();
 
+        // Verificar límites del tablero
         if (esHorizontal) {
-            if (col + longitud > Config.FILAS_TABLERO) {
+            if (col + longitud > Config.COLUMNAS_TABLERO) {
                 vista.mostrarError("El " + tipoBarcoActual.name() + " se sale del tablero (horizontal).");
                 return;
             }
         } else {
-            if (fila + longitud > Config.COLUMNAS_TABLERO) {
+            if (fila + longitud > Config.FILAS_TABLERO) {
                 vista.mostrarError("El " + tipoBarcoActual.name() + " se sale del tablero (vertical).");
                 return;
             }
         }
 
+        // Verificar solapamiento
         List<Coordenada> coordenadasPotenciales = new ArrayList<>();
         for (int i = 0; i < longitud; i++) {
             int cFila = esHorizontal ? fila : fila + i;
@@ -113,13 +112,16 @@ public class GestorJuego {
                 vista.mostrarError("No puedes solapar el " + tipoBarcoActual.name() + " con otro barco.");
                 return;
             }
+
             coordenadasPotenciales.add(new Coordenada(cCol, cFila));
         }
 
+        // Colocar el barco
         for (Coordenada coord : coordenadasPotenciales) {
             CeldaBarco celdaDeEsteBarco = new CeldaBarco(coord, barcoIntentado);
             jugador.getTableroPropio().setCelda(coord.y(), coord.x(), celdaDeEsteBarco);
         }
+
         barcoIntentado.setColocado(true);
         barcoIntentado.setCoordenadas(coordenadasPotenciales);
         jugador.getBarcos().add(barcoIntentado);
@@ -139,14 +141,11 @@ public class GestorJuego {
         vista.mostrarMensaje("Todos tus barcos colocados. La CPU está colocando los suyos...");
         cpu.generarBarcos();
         cpu.setStrategy(estrategiaAleatoria);
-
         modoActual = Modo.DISPARO;
         vista.setModoColocacion(false);
         vista.setModoDisparo(true);
-
         vista.mostrarMensaje("¡Comienza la batalla! Dispara contra el enemigo.");
     }
-
 
     public void manejarClickEnemigo(int fila, int col) {
         if (modoActual != Modo.DISPARO) {
@@ -159,22 +158,33 @@ public class GestorJuego {
                 vista.mostrarError("Ya has disparado en (" + col + "," + fila + ")");
                 return;
             }
+
             jugador.getDisparadas().add(coordDisparo);
-
             Celda celdaObjetivoCPU = cpu.getTableroPropio().getCelda(fila, col);
-            Estado resultado = celdaObjetivoCPU.procesarDisparo();
 
+            // Verificar si ya fue tocada
+            if (celdaObjetivoCPU.isTocada()) {
+                vista.mostrarError("Ya has disparado en (" + col + "," + fila + ")");
+                return;
+            }
+
+            boolean impacto = celdaObjetivoCPU.procesarDisparo();
             vista.actualizarVistaTableroEnemigo(cpu.getTableroPropio());
 
-            if (resultado == Estado.AGUA) {
+            if (!impacto) {
+                // Es agua
                 ReproductorEfectos.getInstance().agua();
                 vista.mostrarMensaje("¡Agua! Disparaste en (" + col + "," + fila + ")");
-            } else if (resultado == Estado.TOCADO) {
-                ReproductorEfectos.getInstance().tocado();
-                vista.mostrarMensaje("¡Tocado! Impacto en (" + col + "," + fila + ")");
-            } else if (resultado == Estado.HUNDIDO) {
-                ReproductorEfectos.getInstance().hundir();
-                vista.mostrarMensaje("¡HUNDIDO! Has hundido un barco enemigo en (" + col + "," + fila + ")");
+            } else {
+                // Es un barco
+                CeldaBarco celdaBarco = (CeldaBarco) celdaObjetivoCPU;
+                if (celdaBarco.getBarco().isHundido()) {
+                    ReproductorEfectos.getInstance().hundir();
+                    vista.mostrarMensaje("¡HUNDIDO! Has hundido un barco enemigo en (" + col + "," + fila + ")");
+                } else {
+                    ReproductorEfectos.getInstance().tocado();
+                    vista.mostrarMensaje("¡Tocado! Impacto en (" + col + "," + fila + ")");
+                }
             }
 
             if (comprobarFinDeJuego()) {
@@ -182,7 +192,6 @@ public class GestorJuego {
             }
 
             realizarTurnoCpu();
-
         } catch (Exception e) {
             vista.mostrarError("Error al procesar disparo: " + e.getMessage());
         }
@@ -192,34 +201,34 @@ public class GestorJuego {
         if (modoActual != Modo.DISPARO) return;
 
         vista.mostrarMensaje("Turno de la CPU...");
-
         try {
             Coordenada coordDisparoCpu = cpu.disparar(jugador.getTableroPropio(), cpu.getStrategy());
-
             Celda celdaObjetivoJugador = jugador.getTableroPropio().getCelda(coordDisparoCpu.y(), coordDisparoCpu.x());
-            Estado resultadoCpu = celdaObjetivoJugador.procesarDisparo();
 
+            boolean impactoCpu = celdaObjetivoJugador.procesarDisparo();
             vista.actualizarVistaTableroJugador(jugador.getTableroPropio());
 
             String mensajeCpu = "CPU disparó en (" + coordDisparoCpu.x() + "," + coordDisparoCpu.y() + "): ";
-            if (resultadoCpu == Estado.AGUA) {
+
+            if (!impactoCpu) {
                 mensajeCpu += "¡Agua!";
-            } else if (resultadoCpu == Estado.TOCADO) {
-                mensajeCpu += "¡Tocado!";
-                cpu.setStrategy(estrategiaCaza);
-            } else if (resultadoCpu == Estado.HUNDIDO) {
-                mensajeCpu += "¡HUNDIDO! Tu barco ha sido hundido.";
-                cpu.setStrategy(estrategiaAleatoria);
+            } else {
+                CeldaBarco celdaBarco = (CeldaBarco) celdaObjetivoJugador;
+                if (celdaBarco.getBarco().isHundido()) {
+                    mensajeCpu += "¡HUNDIDO! Tu barco ha sido hundido.";
+                    cpu.setStrategy(estrategiaAleatoria);
+                } else {
+                    mensajeCpu += "¡Tocado!";
+                    cpu.setStrategy(estrategiaCaza);
+                }
             }
+
             vista.mostrarMensaje(mensajeCpu);
-
             comprobarFinDeJuego();
-
         } catch (Exception e) {
             vista.mostrarError("Error en el turno de la CPU: " + e.getMessage());
         }
     }
-
 
     private boolean comprobarFinDeJuego() {
         if (jugador.todosLosBarcosHundidos()) {
@@ -229,14 +238,14 @@ public class GestorJuego {
             finalizarPartida(true);
             return true;
         }
-        return false; // nadie ha ganado todavía
+        return false;
     }
-
 
     private void finalizarPartida(boolean jugadorGano) {
         modoActual = Modo.FIN;
         vista.bloquearTableros();
         ReproductorMusica.getInstancia().stop();
+
         if (jugadorGano) {
             ReproductorEfectos.getInstance().win();
             vista.mostrarVictoria("¡FELICIDADES! ¡Has hundido toda la flota enemiga!");
@@ -244,6 +253,5 @@ public class GestorJuego {
             ReproductorEfectos.getInstance().lose();
             vista.mostrarDerrota("¡Has perdido! Toda tu flota ha sido hundida.");
         }
-
     }
 }
