@@ -30,6 +30,10 @@ public class Barco {
         }
     }
 
+    /**
+     *
+     * @return Devuelve si se ha hundido el barco.
+     */
     public boolean isHundido() {
         return impactosRecibidos >= getLongitud();
     }

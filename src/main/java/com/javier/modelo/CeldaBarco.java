@@ -8,6 +8,10 @@ public class CeldaBarco extends Celda {
         this.barco = barco;
     }
 
+    /**
+     * @return true si el disparo ha impactado en el barco.
+     *          False si ya estaba tocada.
+     */
     @Override
     public boolean procesarDisparo() {
         if (!tocada) {
