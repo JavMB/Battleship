@@ -1,4 +1,4 @@
-# Hundir la Flota – Proyecto POO + Swing
+# Hundir la Flota 
 
 Este es un proyecto de programación en Java orientado a objetos, donde desarrollamos el clásico juego "Hundir la Flota" contra una CPU, usando interfaz gráfica (Swing) y una arquitectura modular.
 
