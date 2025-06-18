@@ -9,7 +9,7 @@ Este es un proyecto de programación en Java orientado a objetos, donde desarrol
 
 ## Descripción del Proyecto
 
-Este juego fue nuestro proyecto final para el curso de 1º DAM. Aunque las interfaces gráficas no nos dio tiempo de darlo , decidimos aceptar el reto y crear una implementación con interfaz gráfica en lugar de limitarnos a la consola.
+Este juego fue nuestro ultimo projecto trimestral de 1DAM. Aunque las interfaces gráficas no nos dio tiempo de darlo , decidimos aceptar el reto y crear una implementación con interfaz gráfica en lugar de limitarnos a la consola.
 
 ### Características Destacadas
 
