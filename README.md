@@ -2,7 +2,10 @@
 
 Este es un proyecto de programación en Java orientado a objetos, donde desarrollamos el clásico juego "Hundir la Flota" contra una CPU, usando interfaz gráfica (Swing) y una arquitectura modular.
 
-![Battleship](src/main/resources/battleship.jpg)
+![image](https://github.com/user-attachments/assets/0f85128b-69b5-42fa-8e53-bf1d60d3b770)
+
+![image](https://github.com/user-attachments/assets/c05f0f4e-1d4b-41b9-ac52-40f65c5f3297)
+
 
 ## Descripción del Proyecto
 
