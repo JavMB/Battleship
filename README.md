@@ -43,7 +43,7 @@ src/main/java/com/javier/
 
 ## Aprendizaje y Desarrollo
 
-Este proyecto representa un gran logro para nuestro equipo, ya que nos desafiamos a implementar características que iban más allá, como:
+Este proyecto representa un gran aprendizaje, ya que nos animamos a implementar características que iban más allá, como:
 
 1. Interfaces gráficas en Java (Swing)
 2. Patrones de diseño (Strategy)
